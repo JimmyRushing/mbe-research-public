@@ -68,6 +68,28 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Cooldown-Ambient Morphology Comparison
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/gasb-buffer-cooldown-ambient-afm-comparison.png" alt="AFM comparison of GaSb buffer morphology after Sb and As cooldown conditions." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM comparison showing how cooldown ambient affects buffer-surface morphology and height-scale contrast. This supports process-window optimization by linking group-V ambient choice to ex-situ morphology feedback.
+  </figcaption>
+</figure>
+
+## InAs Growth-Rate Morphology Series
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/inas-growth-rate-afm-series.png" alt="AFM morphology series for InAs grown at different nominal growth rates." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM growth-rate series showing morphology changes across nominal InAs growth-rate conditions. This illustrates how ex-situ morphology maps can guide growth-rate calibration, process-window selection, and MBE recipe-variable updates.
+  </figcaption>
+</figure>
+
 ## AFM Stack Morphology
 
 Status: `Public selected figure`
