@@ -57,6 +57,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Large-Area AFM Morphology
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/large-area-afm-faceted-morphology.png" alt="Large-area AFM height map showing micron-scale faceted surface morphology." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative large-area AFM height map showing micron-scale faceted morphology. This illustrates how wider-field scans complement roughness metrics by revealing domain structure, facet texture, and surface uniformity across larger length scales.
+  </figcaption>
+</figure>
+
 ## Surface-Recovery Comparison
 
 Status: `Public selected figure`
