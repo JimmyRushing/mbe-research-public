@@ -79,6 +79,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Fine-Scale AFM Surface Texture
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/fine-scale-afm-surface-texture.png" alt="AFM height map showing fine-scale surface texture and isolated triangular features." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM height map showing fine-scale surface texture and isolated local features. This illustrates how morphology screening can evaluate local uniformity, feature density, and surface evolution beyond a single roughness value.
+  </figcaption>
+</figure>
+
 ## Surface-Recovery Comparison
 
 Status: `Public selected figure`
