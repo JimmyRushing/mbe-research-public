@@ -174,7 +174,7 @@ Status: `Public selected figure`
 <figure>
   <img src="../assets/selected-research-figures/rsm-reciprocal-space-map-public.png" alt="Public reciprocal-space-map example showing substrate and film peaks in reciprocal coordinates." style="max-width: 100%; height: auto;">
   <figcaption>
-    Public reciprocal-space-map example used to visualize lattice relationship and strain-state information from XRD/RSM analysis. This supports resume claims around reciprocal-coordinate calibration, strain/relaxation visualization, and structural interpretation of epitaxial stacks.
+    Public reciprocal-space-map example used to visualize lattice relationship and strain-state information from XRD/RSM analysis. This supports resume claims around reciprocal-coordinate calibration, strain/relaxation visualization, and structural interpretation of epitaxial stacks. Related published context: Madison D. Nordstrom et al., <a href="https://doi.org/10.1021/acs.cgd.3c00812">"Direct Integration of GaSb with GaAs(111)A Using Interfacial Misfit Arrays"</a>, <em>Crystal Growth & Design</em> 23(12), 8670-8677 (2023).
   </figcaption>
 </figure>
 
