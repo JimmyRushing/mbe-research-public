@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Interactive Cadtronics/k.p Modeling Demo</title>
+  <style>
+    :root {
+      --ink: #17201f;
+      --muted: #5f6f6b;
+      --line: #d8e0dd;
+      --soft: #f3f6f4;
+      --paper: #ffffff;
+      --focus: #0f766e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--soft);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    header {
+      display: flex;
+      gap: 24px;
+      align-items: end;
+      justify-content: space-between;
+      padding: 20px 24px 16px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.05;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 860px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+      min-width: 260px;
+    }
+
+    nav a {
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 8px 10px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    nav a.primary {
+      color: #fff;
+      border-color: var(--focus);
+      background: var(--focus);
+    }
+
+    main {
+      padding: 18px;
+    }
+
+    .frame {
+      width: 100%;
+      height: calc(100vh - 168px);
+      min-height: 760px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      overflow: hidden;
+    }
+
+    .interaction-note {
+      margin: 0 0 12px;
+      padding: 12px 14px;
+      border: 1px solid #cbd8cf;
+      border-radius: 8px;
+      background: #f7fbf8;
+      color: #263529;
+      font-size: 15px;
+      line-height: 1.45;
+      max-width: none;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: var(--paper);
+    }
+
+    .notes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 14px;
+    }
+
+    .note h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .note a {
+      color: var(--focus);
+      font-weight: 700;
+    }
+
+    .note.wide {
+      grid-column: 1 / -1;
+    }
+
+    code {
+      font-family: "Cascadia Mono", "Consolas", monospace;
+      font-size: 13px;
+    }
+
+    pre {
+      margin: 10px 0 0;
+      padding: 12px;
+      overflow-x: auto;
+      border-radius: 8px;
+      background: #111817;
+      color: #f5fbf8;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        display: block;
+      }
+
+      nav {
+        justify-content: flex-start;
+        margin-top: 14px;
+      }
+
+      .frame {
+        height: 900px;
+      }
+
+      .notes {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Interactive Cadtronics/k.p Modeling Demo</h1>
+      <p>Interactive Cadtronics/k.p phase-diagram and validation demos for Ga(In)Sb/InAs quantum-well design. Click the phase map below to inspect how each selected heterostructure changes the calculated E-k dispersion.</p>
+    </div>
+    <nav aria-label="Cadtronics demo links">
+      <a class="primary" href="interactive_pure_GaSb_phase_diagram.html">Open Interactive Pure GaSb Phase Diagram</a>
+      <a href="cadtronics-schmid-fig3a-45nm-4k.html">Schmid Validation</a>
+      <a href="https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/cadtronics">Source Tools</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="interaction-note">Click any point in the interactive phase map. The E-k dispersion, band extrema, gap arithmetic, and valence-band shape update from that selected geometry.</p>
+    <div class="frame">
+      <iframe
+        src="interactive_pure_GaSb_phase_diagram.html"
+        title="Interactive pure GaSb 111 TQW phase diagram">
+      </iframe>
+    </div>
+
+    <section class="notes" aria-label="Demo details">
+      <div class="note">
+        <h2>What This Shows</h2>
+        <p>Click a phase-map point to inspect the corresponding E-k dispersion, band extrema, gap arithmetic, and valence-band shape for that TQW geometry.</p>
+      </div>
+      <div class="note">
+        <h2>Public Boundary</h2>
+        <p>The generated HTML is public-facing and self-contained. Raw Cadtronics sweep files remain private; the reusable generator scripts are linked in the public tools folder.</p>
+      </div>
+      <div class="note wide">
+        <h2>How This Was Generated</h2>
+        <p>
+          The phase diagram was generated from Cadtronics/k.p sweep outputs using
+          <a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/cadtronics/phase_diagram_explorer.py">phase_diagram_explorer.py</a>.
+          The public repo includes the generator and the
+          <a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/docs/demos/cadtronics/interactive_pure_GaSb_phase_diagram.html">generated standalone HTML source</a>.
+          Raw simulation sweep files are intentionally not mirrored publicly.
+        </p>
+        <pre><code>python tools/cadtronics/phase_diagram_explorer.py &lt;cadtronics-sweep-dir&gt; --out docs/demos/cadtronics/interactive_pure_GaSb_phase_diagram.html</code></pre>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

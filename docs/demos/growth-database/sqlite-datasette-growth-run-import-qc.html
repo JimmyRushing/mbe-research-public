@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SQLite/Datasette Growth-Run Import/QC</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #16202a;
+      --muted: #5c6875;
+      --line: #d8dee6;
+      --paper: #f7f9fb;
+      --panel: #ffffff;
+      --blue: #0f6cbd;
+      --teal: #0b7f7a;
+      --green: #4c7f2d;
+      --amber: #9b6500;
+      --red: #b42318;
+      --violet: #6f4cc3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 48px;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .crumbs {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .source-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 7px;
+      font-size: 0.9rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    h1 {
+      margin: 30px 0 8px;
+      font-size: clamp(2rem, 4vw, 3.8rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .dek {
+      margin: 0;
+      max-width: 860px;
+      color: #314153;
+      font-size: 1.08rem;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 20px 0 28px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: #233344;
+      font-size: 0.86rem;
+      font-weight: 650;
+    }
+
+    section {
+      margin-top: 28px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.28rem;
+      letter-spacing: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .panel h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(120px, 1fr));
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .step {
+      min-height: 104px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--blue);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    .step:nth-child(2) {
+      border-top-color: var(--teal);
+    }
+
+    .step:nth-child(3) {
+      border-top-color: var(--green);
+    }
+
+    .step:nth-child(4) {
+      border-top-color: var(--amber);
+    }
+
+    .step:nth-child(5) {
+      border-top-color: var(--violet);
+    }
+
+    .step:nth-child(6) {
+      border-top-color: var(--red);
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.96rem;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .timeline-wrap {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+    }
+
+    svg {
+      display: block;
+      min-width: 860px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .timeline-image {
+      display: block;
+      width: 100%;
+      min-width: 860px;
+      height: auto;
+      background: #ffffff;
+    }
+
+    .figure-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .legend span {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .swatch {
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .script-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .script h3 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tag {
+      display: inline-flex;
+      min-height: 22px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: #eaf3ff;
+      color: #075da8;
+      font-size: 0.74rem;
+      font-weight: 750;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag.beta {
+      background: #fff5dc;
+      color: #805100;
+    }
+
+    .callout {
+      border-left: 4px solid var(--teal);
+      background: #eefaf8;
+    }
+
+    .boundary {
+      border-left: 4px solid var(--red);
+      background: #fff4f2;
+    }
+
+    code {
+      padding: 2px 5px;
+      border-radius: 5px;
+      background: #eef1f5;
+      font-size: 0.92em;
+    }
+
+    @media (max-width: 820px) {
+      main {
+        width: min(100% - 22px, 1120px);
+        padding-top: 22px;
+      }
+
+      .grid,
+      .script-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pipeline {
+        grid-template-columns: repeat(6, minmax(180px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="topbar">
+      <div class="crumbs">MBE research portfolio / growth database demo</div>
+      <div class="source-links" aria-label="Source links">
+        <a class="button-link" href="https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/growth_database">Source directory</a>
+        <a class="button-link" href="https://github.com/JimmyRushing/mbe-research-public/blob/main/docs/demos/growth-database/index.md">Demo notes</a>
+      </div>
+    </div>
+
+    <header>
+      <h1>SQLite/Datasette Growth-Run Import/QC</h1>
+      <p class="dek">
+        Public-safe demonstration of an MBE provenance workflow: raw control-point exports are imported into SQLite, converted into Datasette-readable views, segmented into candidate growth windows, and summarized with timeline/QC artifacts.
+      </p>
+      <div class="status-row">
+        <span class="pill">Status: active workflow tool</span>
+        <span class="pill">Public figure: redacted process timeline</span>
+        <span class="pill">Resume phrase: SQLite/Datasette growth-run import/QC</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>What This Demonstrates</h2>
+      <div class="grid">
+        <div class="panel">
+          <h3>Structured Import</h3>
+          <p>Tabular growth exports are normalized into a queryable SQLite database with run metadata, headers, and measurement rows.</p>
+        </div>
+        <div class="panel">
+          <h3>Datasette Views</h3>
+          <p>Readable SQL views expose clock time, substrate temperature, shutter state, source setpoints, and vacuum proxies for browser inspection.</p>
+        </div>
+        <div class="panel">
+          <h3>Growth-Run QC</h3>
+          <p>Detected hot/growth intervals are checked for duration, temperature range, shutter logic, and summary-table consistency.</p>
+        </div>
+        <div class="panel">
+          <h3>Visual Output</h3>
+          <p>Scripts generate timeline and stack-schematic artifacts that make growth provenance easier to audit before analysis.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Workflow</h2>
+      <div class="pipeline" aria-label="Growth database workflow steps">
+        <div class="step"><strong>1. Export</strong><span>Control-point table from a growth day, kept private in the working repository.</span></div>
+        <div class="step"><strong>2. Import</strong><span><code>import_growth_export.py</code> maps headers, metadata, and rows into SQLite.</span></div>
+        <div class="step"><strong>3. Views</strong><span><code>create_readable_views.py</code> creates Datasette-friendly inspection tables.</span></div>
+        <div class="step"><strong>4. Detect</strong><span><code>detect_growth_runs.py</code> identifies candidate hot/growth intervals.</span></div>
+        <div class="step"><strong>5. Visualize</strong><span>Timeline and stack scripts render quick audit pages from detected segments.</span></div>
+        <div class="step"><strong>6. QC</strong><span>Summary tables flag questionable intervals before the data is reused downstream.</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Representative Process Timeline</h2>
+      <div class="timeline-wrap">
+        <img
+          class="timeline-image"
+          src="assets/representative-mbe-process-timeline.png"
+          alt="Redacted representative MBE process timeline showing selected phase blocks, shutter-state bands, substrate-temperature trace, pressure log, and public QC markers."
+        >
+        <p class="figure-note">
+          Real timeline visualization from the private workflow, published as a redacted public process example. Sensitive labels, raw exports, full SQLite records, and run/sample identifiers remain private.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Source Scripts</h2>
+      <div class="script-grid">
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/import_growth_export.py">import_growth_export.py</a> <span class="tag">Core</span></h3>
+          <p>Imports growth control-point exports into normalized SQLite tables with metadata and measurement rows.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/create_readable_views.py">create_readable_views.py</a> <span class="tag">Core</span></h3>
+          <p>Builds browser-friendly SQL views intended for inspection in Datasette or another SQLite viewer.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/detect_growth_runs.py">detect_growth_runs.py</a> <span class="tag">Core</span></h3>
+          <p>Detects candidate growth windows from substrate-temperature and run-window heuristics.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/import_detect_visualize.py">import_detect_visualize.py</a> <span class="tag">Workflow</span></h3>
+          <p>Runs the import, detection, view refresh, and visualization steps as a single reproducible command.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/generate_growth_timeline.py">generate_growth_timeline.py</a> <span class="tag">Visualization</span></h3>
+          <p>Generates HTML/SVG timelines from detected intervals so growth histories can be reviewed visually.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/generate_stack_schematic.py">generate_stack_schematic.py</a> <span class="tag">Visualization</span></h3>
+          <p>Builds simplified stack schematics from detected growth segments for quick layer-order auditing.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/create_bfm_analysis_views.py">create_bfm_analysis_views.py</a> <span class="tag beta">Beta</span></h3>
+          <p>Creates analysis views for beam-flux-monitor and ion-gauge proxy checks. Included as developing workflow code.</p>
+        </div>
+        <div class="panel script">
+          <h3><a href="https://github.com/JimmyRushing/mbe-research-public/blob/main/tools/growth_database/analyze_deox_temperature.py">analyze_deox_temperature.py</a> <span class="tag beta">Beta</span></h3>
+          <p>Summarizes deox-temperature observations from structured records. Public examples are intentionally sanitized.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel callout">
+      <h2>How To Inspect It</h2>
+      <p>
+        Open the source links above to inspect the actual Python workflow. The public page is meant to be the human-readable front door; the scripts show how the import, Datasette view generation, run detection, and QC artifacts are assembled.
+      </p>
+    </section>
+
+    <section class="panel boundary">
+      <h2>Privacy Boundary</h2>
+      <p>
+        The private repository remains the source of truth for real raw exports, full SQLite snapshots, facility notes, private growth annotations, and unpublished run-level details. This public mirror includes scripts, sanitized documentation, a selected de-identified timeline image, and synthetic/example visuals.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
