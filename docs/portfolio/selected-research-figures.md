@@ -24,6 +24,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Wide-Range XRD Reflection Series
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/xrd-111-222-333-444-reflection-series.png" alt="Wide-range XRD two-theta scan showing a 111, 222, 333, and 444 reflection series." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative wide-range XRD scan showing a higher-order reflection series from a (111)-oriented epitaxial stack. This illustrates orientation confirmation, higher-order peak tracking, and broad structural screening before more targeted HRXRD/RSM analysis.
+  </figcaption>
+</figure>
+
 ## TEM Diffraction And Phase Confirmation
 
 Status: `Public selected figure`
