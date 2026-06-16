@@ -1,6 +1,6 @@
 # Selected Research Figures
 
-This page collects public-facing figure examples that show how growth, structural characterization, and morphology feedback are used to evaluate MBE heterostructures. The figures are sanitized slide exports: sample identifiers, internal notes, exact run context, and private process details have been redacted or blurred.
+This page collects public-facing figure examples that show how growth, structural characterization, and morphology feedback are used to evaluate MBE heterostructures. The figures are sanitized slide or figure exports: sample identifiers, internal notes, exact run context, and private process details have been redacted or blurred.
 
 ## In-Situ RHEED Process Monitoring
 
@@ -43,6 +43,50 @@ Status: `Public selected figure`
   <img src="../assets/selected-research-figures/nomarski-afm-surface-morphology.png" alt="Sanitized morphology slide with Nomarski microscopy and AFM height maps." style="max-width: 100%; height: auto;">
   <figcaption>
     Representative Nomarski and AFM morphology comparison used to evaluate surface texture and roughness after heterostructure growth. This supports resume claims around ex-situ morphology analysis feeding back into MBE recipe-variable updates.
+  </figcaption>
+</figure>
+
+## AFM Stack Morphology
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/full-stack-afm-surface-recovery.png" alt="AFM height map with simplified layer-stack context for an antimonide and InAs heterostructure." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM height map with simplified heterostructure context. This illustrates ex-situ surface-roughness analysis and how cap/overgrowth choices can feed back into recipe design for smoother heterointerfaces.
+  </figcaption>
+</figure>
+
+## Sb-Based Surface Preparation
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/sb-template-morphology-comparison.png" alt="AFM comparison of Sb-based surface morphologies after different public-safe surface preparation examples." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM comparison of Sb-based surface morphologies after different public-safe surface-preparation examples. This shows how interface conditioning and starting surface state can strongly change morphology.
+  </figcaption>
+</figure>
+
+## Crystallographic Domain Orientation
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/sb-afm-domain-orientation-map.png" alt="AFM morphology map with in-plane crystallographic direction guide for an Sb-oriented surface." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM morphology map with an in-plane crystallographic direction guide. This illustrates domain and facet-orientation interpretation for Sb-oriented surfaces.
+  </figcaption>
+</figure>
+
+## Reciprocal-Space Mapping
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/rsm-reciprocal-space-map-public.png" alt="Public reciprocal-space-map example showing substrate and film peaks in reciprocal coordinates." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Public reciprocal-space-map example used to visualize lattice relationship and strain-state information from XRD/RSM analysis. This supports resume claims around reciprocal-coordinate calibration, strain/relaxation visualization, and structural interpretation of epitaxial stacks.
   </figcaption>
 </figure>
 
