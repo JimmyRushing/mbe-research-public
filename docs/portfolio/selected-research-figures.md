@@ -24,6 +24,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## TEM Diffraction And Phase Confirmation
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/sb-tem-diffraction-phase-confirmation.png" alt="Cross-sectional TEM image with diffraction-pattern insets for GaSb, Sb, and mixed interface regions." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative TEM and diffraction-pattern analysis used to compare substrate, interface, and film signatures in an Sb-based epitaxial system. This supports resume claims around interpreting TEM evidence for phase confirmation, epitaxial registry, and interface structure.
+  </figcaption>
+</figure>
+
 ## Reflectometry And Thickness Confirmation
 
 Status: `Public selected figure`
