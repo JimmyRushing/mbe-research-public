@@ -46,6 +46,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Surface-Recovery Comparison
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/gasb-gainsb-inas-surface-recovery-comparison.png" alt="AFM and RHEED comparison across related III-V surfaces and cooldown conditions." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative paired view of ex-situ AFM morphology and in-situ RHEED snapshots across related III-V surfaces and cooldown conditions. This illustrates how roughness, domain morphology, and diffraction-pattern feedback can be used together to refine surface-recovery and overgrowth strategies.
+  </figcaption>
+</figure>
+
 ## AFM Stack Morphology
 
 Status: `Public selected figure`
