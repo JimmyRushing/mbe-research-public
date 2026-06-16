@@ -68,6 +68,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Terraced Facet AFM Morphology
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/large-area-afm-terraced-facet-morphology.png" alt="Large-area AFM height map showing terraced faceted morphology at micron length scale." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative large-area AFM height map showing terraced faceted morphology. This illustrates how AFM can distinguish facet evolution, terrace structure, and mesoscale growth morphology that would be hidden by a single roughness metric.
+  </figcaption>
+</figure>
+
 ## Surface-Recovery Comparison
 
 Status: `Public selected figure`
