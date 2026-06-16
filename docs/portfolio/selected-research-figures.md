@@ -2,6 +2,17 @@
 
 This page collects public-facing figure examples that show how growth, structural characterization, and morphology feedback are used to evaluate MBE heterostructures. The figures are sanitized slide exports: sample identifiers, internal notes, exact run context, and private process details have been redacted or blurred.
 
+## In-Situ RHEED Process Monitoring
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/rheed-process-timeline-public.png" alt="Sanitized process timeline with selected RHEED images shown below a redacted growth sequence." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative public RHEED/process-monitoring view showing selected diffraction patterns in the context of a redacted growth timeline. This supports resume claims around RHEED-guided reconstruction tracking, recipe-variable feedback, and in-situ growth-day decision support.
+  </figcaption>
+</figure>
+
 ## Structural Characterization
 
 Status: `Public selected figure`
