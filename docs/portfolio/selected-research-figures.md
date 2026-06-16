@@ -90,6 +90,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Anisotropic AFM Surface Texture
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/anisotropic-afm-surface-texture.png" alt="AFM height map showing anisotropic elongated surface texture." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM height map showing anisotropic elongated surface texture. This illustrates how morphology analysis can identify directional growth features, lateral uniformity, and surface evolution across length scales relevant to epitaxial process tuning.
+  </figcaption>
+</figure>
+
 ## Surface-Recovery Comparison
 
 Status: `Public selected figure`
