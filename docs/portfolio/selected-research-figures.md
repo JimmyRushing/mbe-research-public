@@ -68,6 +68,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Optical Modeling And Thickness Screening
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/optical-modeling-thickness-screening.png" alt="Optical model fit comparing experimental and modeled psi spectra with a simple thin-film stack schematic." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative optical-modeling example comparing measured and modeled spectra with a simple layer-stack schematic. This illustrates non-destructive thickness and roughness screening that can support rapid post-growth feedback when RHEED-based calibration is not the most direct measurement.
+  </figcaption>
+</figure>
+
 ## Surface Morphology
 
 Status: `Public selected figure`
