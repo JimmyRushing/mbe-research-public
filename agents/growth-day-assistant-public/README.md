@@ -2,7 +2,7 @@
 
 Status: `Public summary`
 
-The growth-day assistant is a private workflow for planning and reconstructing MBE growth runs. The public version documents the transferable research pattern without exposing facility-specific procedures.
+The growth-day assistant is a private workflow for planning and executing MBE growth runs. The public version documents the transferable research pattern without exposing facility-specific procedures.
 
 ## Public Scope
 
