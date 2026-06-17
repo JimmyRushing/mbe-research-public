@@ -88,17 +88,17 @@ These AFM examples are grouped as a compact gallery so the section reads as a mo
 <style>
   .afm-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
     margin: 16px 0 28px;
   }
 
   .afm-gallery figure {
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: 8px;
+    gap: 7px;
     margin: 0;
-    padding: 10px;
+    padding: 8px;
     border: 1px solid #d7dee2;
     border-radius: 8px;
     background: #fff;
@@ -106,20 +106,20 @@ These AFM examples are grouped as a compact gallery so the section reads as a mo
 
   .afm-gallery a {
     display: grid;
-    min-height: 210px;
+    min-height: 155px;
     place-items: center;
   }
 
   .afm-gallery img {
     width: 100%;
-    max-height: 260px;
+    max-height: 190px;
     object-fit: contain;
   }
 
   .afm-gallery figcaption {
     color: #4b5563;
-    font-size: 0.92rem;
-    line-height: 1.35;
+    font-size: 0.86rem;
+    line-height: 1.3;
   }
 </style>
 
