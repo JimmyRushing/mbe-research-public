@@ -204,7 +204,7 @@ HTML_TEMPLATE = r"""<!doctype html>
     .app {
       min-height: 100vh;
       display: grid;
-      grid-template-rows: auto 1fr;
+      grid-template-rows: auto auto 1fr;
     }
 
     header {
@@ -228,6 +228,135 @@ HTML_TEMPLATE = r"""<!doctype html>
       margin-top: 4px;
       color: var(--muted);
       font-size: 14px;
+    }
+
+    .description-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 18px;
+      align-items: center;
+      margin: 14px 16px 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .description-panel h2 {
+      margin: 0 0 7px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .description-panel p {
+      margin: 0;
+      max-width: 920px;
+      color: #344340;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .description-panel p + p {
+      margin-top: 7px;
+    }
+
+    .mount-cartoon {
+      position: relative;
+      min-height: 160px;
+      overflow: hidden;
+      border: 1px solid #b8c5c1;
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 20% 24%, rgba(20, 184, 166, 0.14), transparent 30%),
+        radial-gradient(circle at 62% 75%, rgba(245, 158, 11, 0.12), transparent 32%),
+        linear-gradient(135deg, #f9fbfa, #eef4f1);
+    }
+
+    .mount-cartoon .rail {
+      position: absolute;
+      left: 24px;
+      right: 54px;
+      top: 86px;
+      height: 8px;
+      border-radius: 999px;
+      background: #42514e;
+      box-shadow: 0 12px 26px rgba(23, 32, 31, 0.14);
+    }
+
+    .mount-cartoon .beam {
+      position: absolute;
+      left: 14px;
+      right: 48px;
+      top: 52px;
+      height: 3px;
+      transform: rotate(12deg);
+      transform-origin: left center;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(15, 118, 110, 0), rgba(15, 118, 110, 0.85), rgba(180, 83, 9, 0.7));
+    }
+
+    .mount-cartoon .screen {
+      position: absolute;
+      right: 18px;
+      top: 36px;
+      width: 18px;
+      height: 92px;
+      border-radius: 7px;
+      border: 1px solid #95aaa4;
+      background: linear-gradient(180deg, #ffffff, #d7e4df);
+      box-shadow: inset 0 0 0 2px rgba(15, 118, 110, 0.08);
+    }
+
+    .sample-chip {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 96px;
+      min-height: 55px;
+      padding: 8px;
+      border: 2px solid currentColor;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--focus);
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(23, 32, 31, 0.12);
+    }
+
+    .sample-chip strong {
+      display: block;
+      font-size: 16px;
+      line-height: 1.05;
+    }
+
+    .sample-chip span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .sample-001 {
+      left: 45px;
+      top: 46px;
+      transform: rotate(-10deg);
+    }
+
+    .sample-111 {
+      left: 147px;
+      top: 76px;
+      color: var(--warn);
+      transform: rotate(16deg);
+    }
+
+    .cartoon-label {
+      position: absolute;
+      left: 18px;
+      bottom: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
     }
 
     .header-metrics {
@@ -623,6 +752,10 @@ HTML_TEMPLATE = r"""<!doctype html>
         grid-template-columns: 1fr;
       }
 
+      .description-panel {
+        grid-template-columns: 1fr;
+      }
+
       .workspace {
         grid-template-rows: auto auto;
       }
@@ -649,6 +782,11 @@ HTML_TEMPLATE = r"""<!doctype html>
         min-width: calc(50% - 4px);
       }
 
+      .description-panel {
+        margin: 12px 12px 0;
+        padding: 12px;
+      }
+
       th,
       td {
         padding-left: 7px;
@@ -671,6 +809,26 @@ HTML_TEMPLATE = r"""<!doctype html>
         <div class="metric"><span>Incidence</span><strong id="incMetric">1.50 deg</strong></div>
       </div>
     </header>
+
+    <section class="description-panel" aria-labelledby="descriptionTitle">
+      <div>
+        <h2 id="descriptionTitle">Script-to-lab interface</h2>
+        <p>
+          This graphical user interface presents work that is largely performed in an AI-assisted script environment. It makes the utility of those scripts visible by turning crystallographic calculations, dual-mounted sample geometry, and editable beam-steering calibration into a live azimuth map.
+        </p>
+        <p>
+          The goal is to provide a more accessible workflow for labmates: compare (001) and (111) mounts, check likely RHEED zone-axis candidates, and export a compact candidate table without running the full script stack.
+        </p>
+      </div>
+      <div class="mount-cartoon" aria-label="Cartoon of a dual-mounted RHEED sample geometry">
+        <div class="beam"></div>
+        <div class="rail"></div>
+        <div class="sample-chip sample-001"><div><strong>(001)</strong><span>zero [110]</span></div></div>
+        <div class="sample-chip sample-111"><div><strong>(111)</strong><span>zero [1 -1 0]</span></div></div>
+        <div class="screen" aria-hidden="true"></div>
+        <div class="cartoon-label">dual-mounted sample / RHEED beam</div>
+      </div>
+    </section>
 
     <main>
       <aside>
