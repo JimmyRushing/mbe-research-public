@@ -79,6 +79,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## XPS Survey And Core-Level Scans
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/xps-survey-core-level-scans.png" alt="XPS survey spectrum and Bi 4f, In 3d, and As 3d core-level scans with representative peak fits and backgrounds." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative XPS survey and core-level scans showing a broad survey spectrum alongside Bi 4f, In 3d, and As 3d fitting windows. This supports resume claims around interpreting XPS data for surface/interface chemistry and connecting composition-sensitive characterization back to MBE heterostructure optimization.
+  </figcaption>
+</figure>
+
 ## AFM Morphology And Process Feedback
 
 Status: `Public selected figure set`
