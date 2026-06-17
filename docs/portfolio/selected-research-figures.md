@@ -167,6 +167,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Elemental Sb Thin Film
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/elemental-sb-thin-film.png" alt="AFM height maps of an elemental Sb thin film showing triangular domain morphology and surface texture." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative AFM height maps of an elemental Sb thin film, showing triangular domain morphology and surface texture at the 500 nm scale. This provides a public-facing example of Sb thin-film morphology analysis without exposing sample identifiers.
+  </figcaption>
+</figure>
+
 ## Crystallographic Domain Orientation
 
 Status: `Public selected figure`
