@@ -46,6 +46,17 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
+## Atomic-Resolution TEM Interface Analysis
+
+Status: `Public selected figure`
+
+<figure>
+  <img src="../assets/selected-research-figures/atomic-resolution-tem-interface-analysis.png" alt="Atomic-resolution TEM image with magnified interface region and representative local contrast details." style="max-width: 100%; height: auto;">
+  <figcaption>
+    Representative atomic-resolution TEM figure used to inspect local lattice contrast, interface structure, and nanoscale heterostructure quality. The public version uses a neutral filename and caption without sample identifiers.
+  </figcaption>
+</figure>
+
 ## Reflectometry And Thickness Confirmation
 
 Status: `Public selected figure`
