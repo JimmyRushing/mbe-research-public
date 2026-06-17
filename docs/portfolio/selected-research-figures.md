@@ -79,104 +79,96 @@ Status: `Public selected figure`
   </figcaption>
 </figure>
 
-## Surface Morphology
+## AFM Morphology And Process Feedback
 
-Status: `Public selected figure`
+Status: `Public selected figure set`
 
-<figure>
-  <img src="../assets/selected-research-figures/nomarski-afm-surface-morphology.png" alt="Sanitized morphology slide with Nomarski microscopy and AFM height maps." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative Nomarski and AFM morphology comparison used to evaluate surface texture and roughness after heterostructure growth. This supports resume claims around ex-situ morphology analysis feeding back into MBE recipe-variable updates.
-  </figcaption>
-</figure>
+These AFM examples are grouped as a compact gallery so the section reads as a morphology workflow rather than a long sequence of isolated scans. Select any image to inspect the full-size figure.
 
-## Large-Area AFM Morphology
+<style>
+  .afm-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 16px 0 28px;
+  }
 
-Status: `Public selected figure`
+  .afm-gallery figure {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 8px;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #d7dee2;
+    border-radius: 8px;
+    background: #fff;
+  }
 
-<figure>
-  <img src="../assets/selected-research-figures/large-area-afm-faceted-morphology.png" alt="Large-area AFM height map showing micron-scale faceted surface morphology." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative large-area AFM height map showing micron-scale faceted morphology. This illustrates how wider-field scans complement roughness metrics by revealing domain structure, facet texture, and surface uniformity across larger length scales.
-  </figcaption>
-</figure>
+  .afm-gallery a {
+    display: grid;
+    min-height: 210px;
+    place-items: center;
+  }
 
-## Terraced Facet AFM Morphology
+  .afm-gallery img {
+    width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+  }
 
-Status: `Public selected figure`
+  .afm-gallery figcaption {
+    color: #4b5563;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+</style>
 
-<figure>
-  <img src="../assets/selected-research-figures/large-area-afm-terraced-facet-morphology.png" alt="Large-area AFM height map showing terraced faceted morphology at micron length scale." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative large-area AFM height map showing terraced faceted morphology. This illustrates how AFM can distinguish facet evolution, terrace structure, and mesoscale growth morphology that would be hidden by a single roughness metric.
-  </figcaption>
-</figure>
+<div class="afm-gallery">
+  <figure>
+    <a href="../assets/selected-research-figures/nomarski-afm-surface-morphology.png"><img src="../assets/selected-research-figures/nomarski-afm-surface-morphology.png" alt="Sanitized morphology slide with Nomarski microscopy and AFM height maps."></a>
+    <figcaption><strong>Morphology overview.</strong> Nomarski plus AFM context for evaluating surface texture, roughness, and recipe feedback.</figcaption>
+  </figure>
 
-## Fine-Scale AFM Surface Texture
+  <figure>
+    <a href="../assets/selected-research-figures/large-area-afm-faceted-morphology.png"><img src="../assets/selected-research-figures/large-area-afm-faceted-morphology.png" alt="Large-area AFM height map showing micron-scale faceted surface morphology."></a>
+    <figcaption><strong>Large-area faceting.</strong> Wide-field AFM reveals domain structure and surface uniformity beyond a single roughness metric.</figcaption>
+  </figure>
 
-Status: `Public selected figure`
+  <figure>
+    <a href="../assets/selected-research-figures/large-area-afm-terraced-facet-morphology.png"><img src="../assets/selected-research-figures/large-area-afm-terraced-facet-morphology.png" alt="Large-area AFM height map showing terraced faceted morphology at micron length scale."></a>
+    <figcaption><strong>Terraced facets.</strong> Mesoscale scans distinguish facet evolution and terrace structure across larger length scales.</figcaption>
+  </figure>
 
-<figure>
-  <img src="../assets/selected-research-figures/fine-scale-afm-surface-texture.png" alt="AFM height map showing fine-scale surface texture and isolated triangular features." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative AFM height map showing fine-scale surface texture and isolated local features. This illustrates how morphology screening can evaluate local uniformity, feature density, and surface evolution beyond a single roughness value.
-  </figcaption>
-</figure>
+  <figure>
+    <a href="../assets/selected-research-figures/fine-scale-afm-surface-texture.png"><img src="../assets/selected-research-figures/fine-scale-afm-surface-texture.png" alt="AFM height map showing fine-scale surface texture and isolated triangular features."></a>
+    <figcaption><strong>Fine-scale texture.</strong> Local scans track uniformity, feature density, and surface evolution at smaller length scales.</figcaption>
+  </figure>
 
-## Anisotropic AFM Surface Texture
+  <figure>
+    <a href="../assets/selected-research-figures/anisotropic-afm-surface-texture.png"><img src="../assets/selected-research-figures/anisotropic-afm-surface-texture.png" alt="AFM height map showing anisotropic elongated surface texture."></a>
+    <figcaption><strong>Anisotropic texture.</strong> Directional morphology indicates growth-mode changes relevant to epitaxial process tuning.</figcaption>
+  </figure>
 
-Status: `Public selected figure`
+  <figure>
+    <a href="../assets/selected-research-figures/gasb-gainsb-inas-surface-recovery-comparison.png"><img src="../assets/selected-research-figures/gasb-gainsb-inas-surface-recovery-comparison.png" alt="AFM and RHEED comparison across related III-V surfaces and cooldown conditions."></a>
+    <figcaption><strong>Surface recovery.</strong> Paired AFM/RHEED views connect ex-situ morphology with in-situ diffraction feedback.</figcaption>
+  </figure>
 
-<figure>
-  <img src="../assets/selected-research-figures/anisotropic-afm-surface-texture.png" alt="AFM height map showing anisotropic elongated surface texture." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative AFM height map showing anisotropic elongated surface texture. This illustrates how morphology analysis can identify directional growth features, lateral uniformity, and surface evolution across length scales relevant to epitaxial process tuning.
-  </figcaption>
-</figure>
+  <figure>
+    <a href="../assets/selected-research-figures/gasb-buffer-cooldown-ambient-afm-comparison.png"><img src="../assets/selected-research-figures/gasb-buffer-cooldown-ambient-afm-comparison.png" alt="AFM comparison of GaSb buffer morphology after Sb and As cooldown conditions."></a>
+    <figcaption><strong>Cooldown ambient.</strong> AFM comparison links group-V ambient choice to buffer-surface morphology and height-scale contrast.</figcaption>
+  </figure>
 
-## Surface-Recovery Comparison
+  <figure>
+    <a href="../assets/selected-research-figures/inas-growth-rate-afm-series.png"><img src="../assets/selected-research-figures/inas-growth-rate-afm-series.png" alt="AFM morphology series for InAs grown at different nominal growth rates."></a>
+    <figcaption><strong>Growth-rate series.</strong> Morphology maps guide growth-rate calibration, process-window selection, and recipe updates.</figcaption>
+  </figure>
 
-Status: `Public selected figure`
-
-<figure>
-  <img src="../assets/selected-research-figures/gasb-gainsb-inas-surface-recovery-comparison.png" alt="AFM and RHEED comparison across related III-V surfaces and cooldown conditions." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative paired view of ex-situ AFM morphology and in-situ RHEED snapshots across related III-V surfaces and cooldown conditions. This illustrates how roughness, domain morphology, and diffraction-pattern feedback can be used together to refine surface-recovery and overgrowth strategies.
-  </figcaption>
-</figure>
-
-## Cooldown-Ambient Morphology Comparison
-
-Status: `Public selected figure`
-
-<figure>
-  <img src="../assets/selected-research-figures/gasb-buffer-cooldown-ambient-afm-comparison.png" alt="AFM comparison of GaSb buffer morphology after Sb and As cooldown conditions." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative AFM comparison showing how cooldown ambient affects buffer-surface morphology and height-scale contrast. This supports process-window optimization by linking group-V ambient choice to ex-situ morphology feedback.
-  </figcaption>
-</figure>
-
-## InAs Growth-Rate Morphology Series
-
-Status: `Public selected figure`
-
-<figure>
-  <img src="../assets/selected-research-figures/inas-growth-rate-afm-series.png" alt="AFM morphology series for InAs grown at different nominal growth rates." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative AFM growth-rate series showing morphology changes across nominal InAs growth-rate conditions. This illustrates how ex-situ morphology maps can guide growth-rate calibration, process-window selection, and MBE recipe-variable updates.
-  </figcaption>
-</figure>
-
-## AFM Stack Morphology
-
-Status: `Public selected figure`
-
-<figure>
-  <img src="../assets/selected-research-figures/full-stack-afm-surface-recovery.png" alt="AFM height map with simplified layer-stack context for an antimonide and InAs heterostructure." style="max-width: 100%; height: auto;">
-  <figcaption>
-    Representative AFM height map with simplified heterostructure context. This illustrates ex-situ surface-roughness analysis and how cap/overgrowth choices can feed back into recipe design for smoother heterointerfaces.
-  </figcaption>
-</figure>
+  <figure>
+    <a href="../assets/selected-research-figures/full-stack-afm-surface-recovery.png"><img src="../assets/selected-research-figures/full-stack-afm-surface-recovery.png" alt="AFM height map with simplified layer-stack context for an antimonide and InAs heterostructure."></a>
+    <figcaption><strong>Stack morphology.</strong> Roughness analysis with layer context links cap/overgrowth choices to heterointerface quality.</figcaption>
+  </figure>
+</div>
 
 ## Sb-Based Surface Preparation
 
