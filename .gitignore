@@ -2,17 +2,20 @@ __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 
+# Local operating-system and editor artifacts.
 .DS_Store
 Thumbs.db
 desktop.ini
 ~$*
 
+# Local secrets, credentials, and connector files.
 *.local.json
 *.local.json.txt
 *.secret.*
 .env
 .env.*
 
+# Private databases and bulky editable source artifacts stay out of the public export.
 *.sqlite
 *.sqlite3
 *.db

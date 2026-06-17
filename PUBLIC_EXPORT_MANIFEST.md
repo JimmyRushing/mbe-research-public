@@ -1,6 +1,6 @@
 # Public Export Manifest
 
-Generated from the private research workspace as a curated public candidate.
+Generated from the private research workspace as a curated public portfolio export.
 
 ## Included In This Export
 
@@ -14,7 +14,7 @@ Generated from the private research workspace as a curated public candidate.
 - XRD plotting utility
 - public-safe literature search tooling
 - public-safe agent specifications and summaries
-- artifact policy and `.gitignore` guardrails
+- artifact policy, repository overview pages, and `.gitignore` guardrails
 
 ## Intentionally Excluded
 

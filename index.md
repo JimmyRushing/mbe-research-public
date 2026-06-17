@@ -1,6 +1,6 @@
 # MBE Research Portfolio
 
-Public-facing research portfolio for MBE growth, characterization, modeling, and workflow tools developed by James Rushing.
+Public-facing research portfolio for MBE growth, characterization, modeling, and workflow tools developed by James Rushing for quantum-materials research.
 
 ## Start Here
 
@@ -23,4 +23,4 @@ Public-facing research portfolio for MBE growth, characterization, modeling, and
 
 ## Repository
 
-The public source repository is available at [github.com/JimmyRushing/mbe-research-public](https://github.com/JimmyRushing/mbe-research-public).
+The public source repository is available at [github.com/JimmyRushing/mbe-research-public](https://github.com/JimmyRushing/mbe-research-public), with selected portfolio pages, demos, notebooks, and documentation organized for quick review.
