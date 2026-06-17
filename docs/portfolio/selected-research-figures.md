@@ -2,6 +2,8 @@
 
 This page collects public-facing figure examples that show how growth, structural characterization, and morphology feedback are used to evaluate MBE heterostructures. The figures are sanitized slide or figure exports: sample identifiers, internal notes, exact run context, and private process details have been redacted or blurred.
 
+Quick jumps: [RHEED](#in-situ-rheed-process-monitoring) | [XRD/XRR/TEM](#structural-characterization) | [XPS](#xps-survey-and-core-level-scans) | [Ellipsometry](#optical-modeling-and-thickness-screening) | [AFM](#afm-morphology-and-process-feedback)
+
 ## In-Situ RHEED Process Monitoring
 
 Status: `Public selected figure`

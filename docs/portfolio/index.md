@@ -12,9 +12,11 @@ Selected presentations document the development of III-V antimonide heterostruct
 
 ### Selected Research Figures
 
-Sanitized public figure examples show representative XRD/XRR analysis, thickness/fringe interpretation, rocking-curve extraction, and AFM/Nomarski morphology feedback. Raw scans, full sample histories, exact run context, and unredacted process details remain private.
+Sanitized public figure examples show representative XRD/XRR analysis, XPS survey/core-level scans, thickness/fringe interpretation, rocking-curve extraction, optical modeling, and AFM/Nomarski morphology feedback. Raw scans, full sample histories, exact run context, and unredacted process details remain private.
 
 [View selected research figures](selected-research-figures.md)
+
+[Jump to XPS survey and core-level scans](selected-research-figures.html#xps-survey-and-core-level-scans)
 
 ### Growth Database And Provenance Tools
 
