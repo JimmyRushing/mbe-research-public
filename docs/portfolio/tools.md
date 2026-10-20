@@ -6,7 +6,7 @@ This page maps the public tools by workflow area and development status.
 
 Status: `Active workflow tool`
 
-Path: [`tools/cadtronics/`](../../tools/cadtronics/)
+Path: [`tools/cadtronics/`](https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/cadtronics)
 
 Purpose: analyze Hamiltonian-based Cadtronics/k.p dispersion outputs for InAs/Ga(In)Sb quantum-well designs.
 
@@ -23,7 +23,7 @@ Public demo target: [Cadtronics demo](../demos/cadtronics/)
 
 Status: `Active workflow tool`, with selected scripts labeled `Beta`
 
-Path: [`tools/growth_database/`](../../tools/growth_database/)
+Path: [`tools/growth_database/`](https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/growth_database)
 
 Purpose: turn MBE control-point exports into queryable records, readable views, detected growth intervals, static timeline visualizations, stack schematics, and QC outputs.
 
@@ -85,7 +85,7 @@ Public notebooks:
 
 Status: `Active workflow tool`
 
-Path: [`tools/literature/`](../../tools/literature/)
+Path: [`tools/literature/`](https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/literature)
 
 Purpose: build transparent Crossref/OpenAlex query logs and markdown summaries for literature triage.
 
