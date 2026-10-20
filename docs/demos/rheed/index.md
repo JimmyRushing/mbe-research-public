@@ -4,6 +4,8 @@ Status: `Interactive geometry demonstration`
 
 Explore how sample position, beam steering, and holder rotation affect RHEED alignment for co-mounted (001) and (111) samples.
 
+These tools currently serve as pedagogical and conceptual aids to in situ characterization. Formalizing their underlying geometry, assumptions, and decision logic in scripts makes that reasoning explicit, testable, and reproducible, laying a foundation for integrating automated workflows into experimental materials research.
+
 ## Interactive Demo
 
 [Open the RHEED geometry visualizer](geometry-visualizer.html)

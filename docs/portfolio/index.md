@@ -2,6 +2,8 @@
 
 This portfolio collects selected public evidence for MBE growth, characterization, modeling, and workflow tooling.
 
+The in situ characterization demonstrations currently serve as pedagogical and conceptual aids to experimental reasoning. Formalizing their underlying geometry, assumptions, and decision logic in scripts makes that reasoning explicit, testable, and reproducible, laying a foundation for integrating automated workflows into experimental materials research.
+
 ## Main Threads
 
 ### Epitaxial Growth And Characterization
