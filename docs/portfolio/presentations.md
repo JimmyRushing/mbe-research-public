@@ -2,6 +2,18 @@
 
 These PDFs are public-selected presentation artifacts. They are included to show the research arc and the experimental/modeling context behind the tools in this repository.
 
+## ICMBE 2026 Selected Slides
+
+Status: `Public selected slides`
+
+PDF: [icmbe-2026-selected-slides.pdf](../assets/presentations/icmbe-2026-selected-slides.pdf)
+
+Presentation: "Epitaxial Sb and Al thin films on III-V(111)A substrates via low-overhead growth processes." ICMBE 2026, Ann Arbor, Michigan, July 2026.
+
+Four slides selected from the delivered conference presentation: title and coauthor credits, surface-symmetry motivation, AFM morphology, and the research summary. Original slide numbers (1, 2, 8, and 12) are retained. Results and future-work statements reflect the July 2026 presentation.
+
+The excerpt contains no speaker notes, backup slides, process recipes, calibration tables, or embedded files. The original presentation remains unchanged.
+
 ## NAMBE 2025 Selected Slides
 
 Status: `Public selected slides`
