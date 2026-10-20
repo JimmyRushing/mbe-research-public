@@ -38,17 +38,23 @@ Cadtronics/k.p tools analyze Hamiltonian-based dispersion outputs, extract hybri
 
 [View Cadtronics demo](../demos/cadtronics/)
 
-### RHEED Planning And Growth-Day Decision Support
+### RHEED Geometry and Alignment
 
-RHEED tools compute double-mounted sample setpoints and generate an interactive zone-axis finder for (001)/(111) mounted samples. These tools support reproducible in-situ monitoring plans and cleaner growth-day records.
+The current interactive geometry visualizer connects sample offset, beam steering, and holder rotation for co-mounted (001)/(111) samples. It shows beam footprint and zone-axis alignment using illustrative geometry and calibration values, not calibrated equipment setpoints. Earlier planning scripts remain available as historical references.
 
-[View RHEED demo plan](../demos/rheed/index.md)
+[Open the geometry visualizer](../demos/rheed/geometry-visualizer.html) · [Guide and scope](../demos/rheed/index.md)
 
 ### Reproducible Analysis Workflows
 
 The public tool map includes XRD plotting utilities, public notebooks, literature search tools, and agent specifications for reproducible analysis, database maintenance, and literature triage.
 
 [View tool map](tools.md)
+
+### Structured Layer-Stack Figures
+
+The standalone stack generator turns explicit layer descriptions into SVG figures that distinguish nominal, measured, and unknown thicknesses. A fully synthetic tutorial demonstrates validation and reproducible file fingerprints without experimental records.
+
+[Explore the stack-generator tutorial](../demos/stack-schematic/index.md)
 
 ## Status Labels
 
@@ -57,3 +63,5 @@ The public tool map includes XRD plotting utilities, public notebooks, literatur
 - `Research prototype`: useful but still being consolidated or documented.
 - `Beta`: public enough to show, with known limitations.
 - `Public selected slides`: curated public deck or excerpt.
+- `Runnable synthetic demonstration`: executable example using invented data.
+- `Interactive geometry demonstration`: illustrative model, not instrument calibration.

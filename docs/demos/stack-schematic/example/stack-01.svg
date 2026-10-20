@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Layer-stack schematic">
+<rect width="1280" height="720" fill="white"/>
+<rect x="0" y="0" width="1280" height="12" fill="#418FDE"/>
+<text x="640.0" y="62.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="32" font-weight="600" fill="#172033">Synthetic layer stacks</text>
+<text x="640.0" y="120.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="23" font-weight="600" fill="#596579">Nominal, simulated measured, and unknown thicknesses</text>
+<text x="266.0" y="198.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="24" font-weight="600" fill="#172033">Synthetic A</text>
+<rect x="96.0" y="298" width="340" height="66" fill="#2E5F8A"/>
+<text x="266.0" y="331.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Cap 5 nm (nominal)</text>
+<rect x="96.0" y="366" width="340" height="66" fill="#6C8ED4"/>
+<text x="266.0" y="399.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#000000">Film 20 nm (nominal)</text>
+<rect x="96.0" y="434" width="340" height="66" fill="#4C8C4A"/>
+<text x="266.0" y="467.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#000000">Buffer 40 nm (nominal)</text>
+<rect x="96.0" y="502" width="340" height="66" fill="#3E4652"/>
+<text x="266.0" y="535.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Substrate</text>
+<text x="266.0" y="614.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="16" font-weight="600" fill="#596579">Invented design values</text>
+<text x="640.0" y="198.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="24" font-weight="600" fill="#172033">Synthetic B</text>
+<rect x="470.0" y="298" width="340" height="66" fill="#2E5F8A"/>
+<text x="640.0" y="331.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Cap 4.8 ± 0.3 nm (measured)</text>
+<rect x="470.0" y="366" width="340" height="66" fill="#6C8ED4"/>
+<text x="640.0" y="399.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#000000">Film 19 ± 1 nm (measured)</text>
+<rect x="470.0" y="434" width="340" height="66" fill="#4C8C4A"/>
+<text x="640.0" y="467.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#000000">Buffer 40 nm (nominal)</text>
+<rect x="470.0" y="502" width="340" height="66" fill="#3E4652"/>
+<text x="640.0" y="535.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Substrate</text>
+<text x="640.0" y="614.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="16" font-weight="600" fill="#596579">Simulated measurements only</text>
+<text x="1014.0" y="198.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="24" font-weight="600" fill="#172033">Synthetic C</text>
+<rect x="844.0" y="298" width="340" height="66" fill="#2E5F8A"/>
+<text x="1014.0" y="331.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Cap ? nm</text>
+<rect x="844.0" y="366" width="340" height="66" fill="#6C8ED4"/>
+<text x="1014.0" y="399.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#000000">Film ~18 nm (nominal)</text>
+<rect x="844.0" y="434" width="340" height="66" fill="#4C8C4A"/>
+<text x="1014.0" y="467.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#000000">Buffer 40 nm (nominal)</text>
+<rect x="844.0" y="502" width="340" height="66" fill="#3E4652"/>
+<text x="1014.0" y="535.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="20" font-weight="600" fill="#FFFFFF">Substrate</text>
+<text x="1014.0" y="614.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="16" font-weight="600" fill="#596579">Unknown is not zero</text>
+<text x="640.0" y="678.0" text-anchor="middle" dominant-baseline="central" font-family="Arial,sans-serif" font-size="16" font-weight="600" fill="#596579">Illustrative example: not experimental data. Schematic: not to scale. ? = thickness unknown.</text>
+</svg>

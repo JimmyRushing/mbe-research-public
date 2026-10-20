@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "example": true,
+  "title": "Synthetic layer stacks",
+  "layer_order": "top-to-bottom",
+  "sources": {
+    "tutorial": "Invented tutorial values only; no measurements or real samples."
+  },
+  "slides": [
+    {
+      "title": "Nominal, simulated measured, and unknown thicknesses",
+      "mode": "mixed",
+      "samples": [
+        {
+          "sample_key": "example-a",
+          "layers": [
+            {
+              "material": "Cap",
+              "thickness": 5,
+              "basis": "nominal",
+              "unit": "nm",
+              "source_ref": "tutorial"
+            },
+            {
+              "material": "Film",
+              "thickness": 20,
+              "basis": "nominal",
+              "unit": "nm",
+              "source_ref": "tutorial"
+            },
+            {
+              "material": "Buffer",
+              "thickness": 40,
+              "basis": "nominal",
+              "unit": "nm",
+              "source_ref": "tutorial"
+            },
+            {
+              "material": "Substrate",
+              "role": "substrate",
+              "source_ref": "tutorial"
+            }
+          ],
+          "caveat": "Invented design values"
+        },
+        {
+          "sample_key": "example-b",
+          "layers": [
+            {
+              "material": "Cap",
+              "thickness": 4.8,
+              "basis": "measured",
+              "unit": "nm",
+              "source_ref": "tutorial",
+              "uncertainty": 0.3
+            },
+            {
+              "material": "Film",
+              "thickness": 19,
+              "basis": "measured",
+              "unit": "nm",
+              "source_ref": "tutorial",
+              "uncertainty": 1
+            },
+            {
+              "material": "Buffer",
+              "thickness": 40,
+              "basis": "nominal",
+              "unit": "nm",
+              "source_ref": "tutorial"
+            },
+            {
+              "material": "Substrate",
+              "role": "substrate",
+              "source_ref": "tutorial"
+            }
+          ],
+          "caveat": "Simulated measurements only"
+        },
+        {
+          "sample_key": "example-c",
+          "layers": [
+            {
+              "material": "Cap",
+              "thickness": null,
+              "basis": "unknown",
+              "unit": "nm",
+              "source_ref": "tutorial"
+            },
+            {
+              "material": "Film",
+              "thickness": 18,
+              "basis": "nominal",
+              "unit": "nm",
+              "source_ref": "tutorial",
+              "approximate": true
+            },
+            {
+              "material": "Buffer",
+              "thickness": 40,
+              "basis": "nominal",
+              "unit": "nm",
+              "source_ref": "tutorial"
+            },
+            {
+              "material": "Substrate",
+              "role": "substrate",
+              "source_ref": "tutorial"
+            }
+          ],
+          "caveat": "Unknown is not zero"
+        }
+      ]
+    }
+  ]
+}

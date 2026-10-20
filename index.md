@@ -13,8 +13,9 @@ Public-facing research portfolio for MBE growth, characterization, modeling, and
 
 ## Featured Demos
 
-- [RHEED planning demo](docs/demos/rheed/)
-- [Interactive RHEED zone-axis finder](docs/demos/rheed/zone-axis-finder.html)
+- [Interactive RHEED geometry visualizer](docs/demos/rheed/geometry-visualizer.html)
+- [RHEED guide and historical tools](docs/demos/rheed/)
+- [Synthetic layer-stack generator and tutorial](docs/demos/stack-schematic/)
 - [Growth database and provenance demo plan](docs/demos/growth-database/)
 - [Cadtronics/k.p validation explorer](docs/demos/cadtronics/)
 - [Interactive pure GaSb 111 TQW phase diagram](docs/demos/cadtronics/interactive_pure_GaSb_phase_diagram.html)

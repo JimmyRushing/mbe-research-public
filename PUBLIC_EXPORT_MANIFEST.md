@@ -2,6 +2,35 @@
 
 Generated from the private research workspace as a curated public portfolio export.
 
+## 2026-10-20 Stack Tutorial and RHEED Description Update
+
+This incremental release adds a standalone SVG stack generator adapted from James Rushing's layer-stack renderer, a newly written fixed-field fingerprint helper, tests, and generic synthetic inputs. It changes no repository license terms. No collaborator's broader provenance or Office-normalization framework is included.
+
+Allowlisted additions:
+
+- `.gitattributes` (LF line endings scoped to the new stack package and demo)
+
+- `tools/stack_schematic/build_stack_schematic.py`
+- `tools/stack_schematic/provenance.py`
+- `tools/stack_schematic/stack_style.json`
+- `tools/stack_schematic/test_stack_schematic.py`
+- `tools/stack_schematic/README.md`
+- `tools/stack_schematic/examples/stacks.json`
+- `tools/stack_schematic/examples/registry.json`
+- `docs/demos/stack-schematic/index.md`
+- `docs/demos/stack-schematic/example/stack-01.svg`
+- `docs/demos/stack-schematic/example/stack-01.svg.provenance.json`
+
+Navigation and description updates are limited to `README.md`, `index.md`, this manifest, `docs/demos/index.md`, `docs/demos/rheed/index.md`, `docs/portfolio/index.md`, and `docs/portfolio/tools.md`. The existing RHEED HTML and historical scripts are unchanged. The current geometry visualizer is now consistently the primary demo; earlier planning tools are historical references with illustrative calibration assumptions.
+
+The example input, labels, dimensions, and uncertainties are invented. No real registry, dataset, process recipe, calibration file, local path, or private-source metadata is copied into the release. The committed companion record includes only file hashes, byte counts, page number, and schema version. Its renderer and helper fingerprints identify the exact public code used for the preview.
+
+Validation: 10 focused regression tests pass, including standard-library-only execution, reproducibility, create-only output, XML escaping, evidence labels, scientific input rejection, and fixed-field metadata. Gitleaks 8.30.1 reports no secrets in the checkout. The release is subject to independent review of the full allowlist, source, generated artifact, and public-facing descriptions before publication.
+
+## Original Export Record
+
+The following sections describe the earlier portfolio baseline; their first-push checklist is historical, not a claim that it has been rerun for every file in this update.
+
 ## Included In This Export
 
 - portfolio landing pages under `docs/portfolio/`

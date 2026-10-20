@@ -41,20 +41,30 @@ Public demo target: [SQLite/Datasette growth-run import/QC](../demos/growth-data
 
 Privacy boundary: real raw exports, full SQLite databases, private growth notes, and facility-specific operational records are not included.
 
-## RHEED Planning
+## Structured Layer-Stack Figures
 
-Status: `Active workflow tool`
+Status: `Runnable synthetic demonstration`
 
-Path: [`tools/rheed/`](../../tools/rheed/)
+[Source and input reference](https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/stack_schematic) · [Tutorial and example](../demos/stack-schematic/index.md)
 
-Purpose: make RHEED setpoint planning reproducible for double-mounted (001)/(111) sample workflows.
+Generate editable SVG figures from explicit layer descriptions, preserving nominal, measured, and unknown thickness labels. The public examples are entirely synthetic. Each output has a small fingerprint record without copied paths or input metadata. Python 3.11+ is sufficient; no external packages are required.
 
-Key public tools:
+This complements the database-derived schematic tool above. It does not infer a structure from growth duration or claim that a supplied measurement is correct.
 
-- `zone_axis_finder.py`: builds an interactive standalone HTML zone-axis finder.
-- `double_mount_setpoints.py`: computes rotation, deflX, and deflY setpoints for practical reflection candidates.
+## RHEED Geometry and Historical Planning Tools
 
-Public demo target: [RHEED demo](../demos/rheed/index.md)
+Status: `Interactive geometry demonstration`
+
+[Open the current geometry visualizer](../demos/rheed/geometry-visualizer.html) · [Guide and scope](../demos/rheed/index.md)
+
+Explore how beam steering, sample offset, and holder rotation change alignment for co-mounted (001)/(111) samples. The current visualizer shows beam azimuth, footprint, and candidate zone-axis alignment using illustrative geometry and calibration values. Its outputs are not calibrated equipment setpoints.
+
+Historical source tools remain available at [`tools/rheed/`](https://github.com/JimmyRushing/mbe-research-public/tree/main/tools/rheed):
+
+- `zone_axis_finder.py`: generates the earlier zone-axis finder.
+- `double_mount_setpoints.py`: calculates example rotation/deflection tables under its assumed geometry and calibration.
+
+These tools are retained for reference; the geometry visualizer is the primary public demonstration. None substitutes for instrument calibration or operating procedures.
 
 ## XRD Utility
 

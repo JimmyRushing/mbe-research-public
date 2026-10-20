@@ -1,0 +1,3 @@
+# Preserve exact bytes for the reproducible stack demonstration.
+/tools/stack_schematic/** text eol=lf
+/docs/demos/stack-schematic/** text eol=lf

@@ -1,6 +1,6 @@
 # RHEED Geometry Visualizer
 
-Status: `Active workflow tool`
+Status: `Interactive geometry demonstration`
 
 Explore how sample position, beam steering, and holder rotation affect RHEED alignment for co-mounted (001) and (111) samples.
 
@@ -12,14 +12,14 @@ Start with the reference geometry, scan the beam onto the offset sample, then co
 
 The self-contained HTML uses illustrative sample offsets and example calibration values. It is a geometry and planning demonstration; the displayed values are not calibrated equipment setpoints.
 
-## Earlier Demo and Public Tools
+## Historical Demo and Planning Tools
 
-- [Earlier zone-axis finder](zone-axis-finder.html)
-- [Example setpoint table](example-setpoints.csv)
+- [Historical zone-axis finder](zone-axis-finder.html)
+- [Historical example setpoint table](example-setpoints.csv)
 - [`zone_axis_finder.py`](../../../tools/rheed/zone_axis_finder.py)
 - [`double_mount_setpoints.py`](../../../tools/rheed/double_mount_setpoints.py)
 
-These earlier tools remain available for reference. The newer interactive geometry visualizer is the preferred demonstration.
+These historical tools remain available for reference and use their own assumed geometry and calibration. Their tables are illustrative, not calibrated equipment commands. The current interactive geometry visualizer is the primary demonstration.
 
 ## Public Scope
 

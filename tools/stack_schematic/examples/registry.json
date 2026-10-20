@@ -1,0 +1,16 @@
+{
+  "samples": [
+    {
+      "key": "example-a",
+      "public_label": "Synthetic A"
+    },
+    {
+      "key": "example-b",
+      "public_label": "Synthetic B"
+    },
+    {
+      "key": "example-c",
+      "public_label": "Synthetic C"
+    }
+  ]
+}

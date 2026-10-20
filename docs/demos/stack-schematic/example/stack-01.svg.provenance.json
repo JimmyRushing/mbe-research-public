@@ -1,0 +1,30 @@
+{
+  "inputs": {
+    "config": {
+      "bytes": 3071,
+      "sha256": "52aecb174be9d4ecc5bd3ce4f933074d40665381af371bd1247dfe84c3c51155"
+    },
+    "provenance": {
+      "bytes": 1275,
+      "sha256": "94afa939bcded34cc50815f725153b685770c0fbdb1219b788f0e2dde7a167f5"
+    },
+    "registry": {
+      "bytes": 247,
+      "sha256": "d19edc92df532047cb11208d02bd1e57807889e61f1dbf9af14b9b5533198009"
+    },
+    "renderer": {
+      "bytes": 13547,
+      "sha256": "4bbf2a8352318dae6fea76c00294d26cbdb6d46f44356ca01e92147848e72964"
+    },
+    "style": {
+      "bytes": 159,
+      "sha256": "4600bd2fc8a639ef9b1124b43355b9de07d47b3a500012f9714806ede231a94a"
+    }
+  },
+  "output": {
+    "bytes": 4888,
+    "sha256": "2188b3f092beb83e13ff3c82416d602fc920afb1fe6506334c8ab5ffa7abd9ee"
+  },
+  "page_number": 1,
+  "schema_version": 1
+}

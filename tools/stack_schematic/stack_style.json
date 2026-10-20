@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "accent": "#418FDE",
+  "materials": {
+    "Cap": "#2E5F8A",
+    "Film": "#6C8ED4",
+    "Buffer": "#4C8C4A"
+  },
+  "substrate": "#3E4652"
+}
