@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Double-mounted RHEED geometry</title>
+  <style>
+    :root {
+      --ink: #17201f;
+      --muted: #60706d;
+      --line: #cdd8d4;
+      --soft: #eef4f1;
+      --surface: #fbfcfb;
+      --paper: #ffffff;
+      --focus: #0f766e;
+      --focus-bright: #14b8a6;
+      --warn: #b45309;
+      --warn-bright: #f59e0b;
+      --bad: #a53b3b;
+      --good: #177245;
+      --beam: #4f46e5;
+      --shadow: 0 10px 30px rgba(24, 39, 35, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      color: var(--ink);
+      background: #f4f7f5;
+      font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+
+    button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid rgba(20, 184, 166, 0.28);
+      outline-offset: 2px;
+    }
+
+    .app { min-height: 100vh; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 18px 22px 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .eyebrow {
+      margin-bottom: 4px;
+      color: var(--focus);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(25px, 2.4vw, 38px);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .takeaway {
+      margin: 8px 0 0;
+      max-width: 1020px;
+      color: #344340;
+      font-size: clamp(15px, 1.25vw, 19px);
+      line-height: 1.38;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 14px;
+      padding: 14px;
+      align-items: start;
+    }
+
+    .visual-stack { display: grid; gap: 14px; min-width: 0; }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .geometry-card { min-width: 0; }
+
+    .geometry-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(90deg, #ffffff, #f7faf8);
+    }
+
+    .geometry-head h2, .trajectory-head h2, .control-panel h2 {
+      margin: 0;
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    #sceneExplanation {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .status {
+      min-width: 142px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--good);
+      font-size: 12px;
+      font-weight: 850;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .status.miss { background: var(--bad); }
+    .status.partial { background: var(--warn); }
+
+    .geometry-wrap {
+      position: relative;
+      height: clamp(360px, calc(100vh - 355px), 565px);
+      min-height: 360px;
+      background:
+        radial-gradient(circle at 47% 45%, rgba(15, 118, 110, 0.06), transparent 34%),
+        linear-gradient(180deg, #fcfdfc, #f7faf8);
+    }
+
+    #geometry, #trajectory {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #holderGroup {
+      transform-box: view-box;
+      transform-origin: 450px 250px;
+      transition: transform 480ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    #computedPath, #beamFootprint {
+      transition: opacity 180ms ease;
+    }
+
+    .trajectory-card { min-width: 0; }
+
+    .trajectory-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      padding: 9px 14px 7px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .legend { display: flex; gap: 14px; color: var(--muted); font-size: 12px; }
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 3px;
+      margin-right: 5px;
+      vertical-align: 3px;
+      background: var(--focus);
+    }
+    .legend .dy::before { background: var(--warn-bright); }
+
+    .trajectory-wrap { height: 174px; }
+
+    .control-panel { padding-bottom: 11px; }
+    .control-panel > h2 { padding: 11px 13px 8px; border-bottom: 1px solid var(--line); }
+
+    .control-section {
+      display: grid;
+      gap: 9px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .control-section:last-child { border-bottom: 0; }
+
+    .section-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .scene-row, .toggle-row, .action-row {
+      display: grid;
+      gap: 7px;
+    }
+
+    .scene-row { grid-template-columns: repeat(3, 1fr); }
+    .toggle-row, .action-row { grid-template-columns: repeat(2, 1fr); }
+
+    button {
+      min-height: 35px;
+      padding: 6px 8px;
+      border: 1px solid #a9b9b4;
+      border-radius: 7px;
+      color: var(--ink);
+      background: #f9fbfa;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    button:hover { border-color: var(--focus); }
+    button[aria-pressed="true"] { color: #fff; border-color: var(--focus); background: var(--focus); }
+
+    .field { display: grid; gap: 5px; }
+    .field label { color: #2f3d3a; font-size: 12px; font-weight: 700; }
+    .field-pair { display: grid; grid-template-columns: 1fr 74px; gap: 7px; align-items: center; }
+
+    input[type="range"] { width: 100%; accent-color: var(--focus); }
+
+    input[type="number"], select {
+      width: 100%;
+      min-height: 34px;
+      padding: 5px 7px;
+      border: 1px solid #b8c5c1;
+      border-radius: 6px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .radio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
+    .radio-card {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 35px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .radio-card input { accent-color: var(--focus); }
+
+    .readout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .readout {
+      min-width: 0;
+      padding: 7px 8px;
+      background: #fff;
+    }
+
+    .readout span { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+    .readout strong { display: block; margin-top: 2px; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .readout.wide { grid-column: 1 / -1; }
+
+    .advanced {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fbfcfb;
+    }
+
+    .advanced summary {
+      padding: 9px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .advanced-body { display: grid; gap: 9px; padding: 0 9px 9px; }
+    .candidate-block { display: grid; gap: 4px; }
+    .candidate-block h3 { margin: 0; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+    .candidate-table { width: 100%; border-collapse: collapse; font-size: 10px; }
+    .candidate-table th, .candidate-table td { padding: 4px 3px; border-bottom: 1px solid #e1e8e5; text-align: right; white-space: nowrap; }
+    .candidate-table th:first-child, .candidate-table td:first-child { text-align: left; }
+    .candidate-table th { color: var(--muted); font-weight: 800; }
+    .candidate-empty { color: var(--muted); font-size: 10px; }
+
+    .calibration-note {
+      padding: 9px 10px;
+      border-left: 4px solid var(--warn-bright);
+      background: #fffaf0;
+      color: #58451f;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .calibration-note code { color: #3d321b; font-size: 10px; }
+
+    .provenance {
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    body.frame .hero {
+      padding-top: 13px;
+      padding-bottom: 12px;
+    }
+    body.frame .control-panel, body.frame .trajectory-card { display: none; }
+    body.frame .app-grid { grid-template-columns: 1fr; padding-top: 12px; }
+    body.frame { overflow: hidden; }
+    body.frame .geometry-wrap { height: calc(100vh - 240px); min-height: 0; }
+
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; gap: 9px; }
+      .app-grid { grid-template-columns: minmax(0, 1fr) 310px; }
+    }
+
+    @media (max-width: 820px) {
+      .app-grid { grid-template-columns: 1fr; }
+      .control-panel { order: -1; }
+      .geometry-wrap { height: 470px; }
+    }
+
+    @media (max-width: 560px) {
+      .hero { padding: 14px 13px; }
+      .app-grid { padding: 9px; }
+      .scene-row { grid-template-columns: 1fr; }
+      .geometry-head { grid-template-columns: 1fr; }
+      .status { justify-self: start; }
+      .geometry-wrap { height: 400px; min-height: 400px; }
+      .trajectory-head { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #holderGroup { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">RHEED · dual mounting · laboratory geometry</div>
+        <h1 id="pageTitle">Double-mounted RHEED geometry</h1>
+        <p class="takeaway">Parallel major flats face the beam at θ = 0°; holder rotation turns the mounted separation into coupled X/Y steering.</p>
+      </div>
+    </header>
+
+    <main class="app-grid">
+      <section class="visual-stack" aria-label="Interactive RHEED geometry">
+        <section class="panel geometry-card">
+          <div class="geometry-head">
+            <div>
+              <h2 id="sceneTitle">Coupled correction</h2>
+              <div id="sceneExplanation">The holder has rotated; the beam footprint remains fixed in the laboratory frame.</div>
+            </div>
+            <div id="statusBadge" class="status">HIT + ZONE ALIGNED</div>
+          </div>
+          <div class="geometry-wrap">
+            <svg id="geometry" viewBox="0 0 960 560" role="img" aria-labelledby="geometryTitle geometryDesc">
+              <title id="geometryTitle">Top-down double-mounted RHEED geometry</title>
+              <desc id="geometryDesc">A fixed electron gun illuminates two samples with parallel major flats along laboratory Y at zero rotation. The 111 sample is centered on the rotation axis. At zero steering the beam footprint is elongated along laboratory X; when the beam scans to the offset sample, its ray and footprint rotate together and require a corrected holder rotation for zone alignment.</desc>
+              <defs>
+                <marker id="arrowBeam" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"></path>
+                </marker>
+                <marker id="arrowDark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#17201f"></path>
+                </marker>
+                <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+                  <feGaussianBlur stdDeviation="5" result="blur"></feGaussianBlur>
+                  <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                </filter>
+                <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
+                  <path d="M 26 0 L 0 0 0 26" fill="none" stroke="#dfe7e4" stroke-width="1"></path>
+                </pattern>
+              </defs>
+
+              <rect x="0" y="0" width="960" height="560" fill="url(#grid)" opacity=".34"></rect>
+              <text x="24" y="29" font-size="13" font-weight="800" fill="#17201f">TOP VIEW · LAB FRAME</text>
+              <text x="24" y="48" font-size="11" fill="#60706d">At θ = 0°, the beam faces the parallel major flats.</text>
+
+              <g aria-label="Laboratory axes">
+                <line x1="66" y1="506" x2="126" y2="506" stroke="#17201f" stroke-width="2" marker-end="url(#arrowDark)"></line>
+                <line x1="66" y1="506" x2="66" y2="446" stroke="#17201f" stroke-width="2" marker-end="url(#arrowDark)"></line>
+                <text x="132" y="511" font-size="12" font-weight="800" fill="#17201f">lab X</text>
+                <text x="47" y="439" font-size="12" font-weight="800" fill="#17201f">lab Y</text>
+              </g>
+
+              <g id="holderGroup" aria-label="Rotating sample holder">
+                <circle cx="450" cy="250" r="190" fill="#e7eeeb" stroke="#879a94" stroke-width="3"></circle>
+                <circle cx="450" cy="250" r="181" fill="none" stroke="#ffffff" stroke-width="2" opacity=".8"></circle>
+                <line id="separationVector" x1="450" y1="120" x2="450" y2="250" stroke="#b45309" stroke-width="3" marker-end="url(#arrowDark)"></line>
+                <text x="460" y="190" font-size="11" font-weight="750" fill="#7a4a08">mounted separation Δ</text>
+
+                <g id="sample001" aria-label="001 sample; beam-facing left edge is the major flat">
+                  <rect x="412" y="82" width="76" height="76" rx="3" fill="#0f766e" stroke="#084c48" stroke-width="3"></rect>
+                </g>
+                <text x="500" y="124" font-size="13" font-weight="850" fill="#084c48">(001)</text>
+
+                <g id="sample111" aria-label="111 sample; beam-facing left edge is the [1 -1 0] major flat">
+                  <path d="M 421 205 L 508 250 L 421 295 Z" fill="#b45309" stroke="#713405" stroke-width="3"></path>
+                </g>
+                <text x="518" y="256" font-size="13" font-weight="850" fill="#713405">(111)</text>
+              </g>
+
+              <g id="beamSpread" aria-label="Beam footprint elongated along laboratory X">
+                <ellipse id="beamFootprint" cx="450" cy="250" rx="68" ry="17" fill="#4f46e5" fill-opacity=".14" stroke="#4f46e5" stroke-width="2" stroke-dasharray="6 5"></ellipse>
+              </g>
+
+              <g aria-label="Fixed electron gun and steered beam">
+                <path d="M 27 226 L 94 226 L 121 250 L 94 274 L 27 274 Z" fill="#303b39" stroke="#17201f" stroke-width="2"></path>
+                <circle cx="51" cy="250" r="9" fill="#9fb0ab"></circle>
+                <text x="24" y="210" font-size="12" font-weight="850" fill="#17201f">RHEED GUN</text>
+                <text x="24" y="293" font-size="10" fill="#60706d">fixed in lab frame</text>
+                <line x1="119" y1="250" x2="260" y2="250" stroke="#879a94" stroke-width="2" stroke-dasharray="6 6"></line>
+                <path id="computedPath" d="M 119 250 L 450 250" fill="none" stroke="#4f46e5" stroke-width="5" marker-end="url(#arrowBeam)"></path>
+                <text id="beamAngleSvg" x="150" y="235" font-size="11" font-weight="800" fill="#4f46e5">β = 0.0°</text>
+              </g>
+
+              <g id="rotationArc" aria-label="Holder rotation">
+                <path d="M 309 116 A 193 193 0 0 1 375 72" fill="none" stroke="#17201f" stroke-width="3" marker-end="url(#arrowDark)"></path>
+                <text id="rotationSvg" x="244" y="105" font-size="13" font-weight="850" fill="#17201f">θ = 30.0°</text>
+                <text id="idealRotationSvg" x="244" y="122" font-size="10" fill="#60706d">ideal θ* = 30.0°</text>
+              </g>
+
+              <g id="grazingInset" aria-label="Grazing incidence side view">
+                <rect x="700" y="392" width="235" height="140" rx="8" fill="#fff" stroke="#cdd8d4" stroke-width="2"></rect>
+                <text x="715" y="414" font-size="12" font-weight="850" fill="#17201f">SIDE VIEW · GRAZING INCIDENCE</text>
+                <line x1="718" y1="492" x2="916" y2="492" stroke="#0f766e" stroke-width="9"></line>
+                <line x1="722" y1="464" x2="842" y2="491" stroke="#4f46e5" stroke-width="4" marker-end="url(#arrowBeam)"></line>
+                <path d="M 778 492 A 48 48 0 0 0 776 481" fill="none" stroke="#b45309" stroke-width="2"></path>
+                <text id="incidenceSvg" x="784" y="480" font-size="12" font-weight="850" fill="#b45309">1.5°</text>
+                <text x="715" y="514" font-size="10" fill="#60706d">Independent of the top-view lateral mapping.</text>
+              </g>
+
+              <g aria-label="Beam path legend">
+                <line x1="707" y1="65" x2="747" y2="65" stroke="#4f46e5" stroke-width="4"></line>
+                <text x="756" y="69" font-size="11" fill="#60706d">beam ray · steering azimuth β</text>
+                <ellipse cx="727" cy="89" rx="22" ry="6" fill="#4f46e5" fill-opacity=".14" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="4 3"></ellipse>
+                <text x="756" y="93" font-size="11" fill="#60706d">footprint · along beam-local X</text>
+                <text x="707" y="126" font-size="11" font-weight="850" fill="#713405">(111) in-plane directions</text>
+                <text x="707" y="145" font-size="11" fill="#60706d">major flat ∥ [1 −1 0]</text>
+                <text x="707" y="163" font-size="11" fill="#60706d">all sides ∥ ⟨1 −1 0⟩</text>
+                <text x="707" y="181" font-size="11" fill="#60706d">center → vertices ∥ ⟨1 1 −2⟩</text>
+              </g>
+            </svg>
+          </div>
+        </section>
+
+        <section class="panel trajectory-card">
+          <div class="trajectory-head">
+            <h2>Required laboratory correction as the holder rotates</h2>
+            <div class="legend"><span>dx(θ)</span><span class="dy">dy(θ)</span></div>
+          </div>
+          <div class="trajectory-wrap">
+            <svg id="trajectory" viewBox="0 0 920 174" role="img" aria-labelledby="trajectoryTitle trajectoryDesc">
+              <title id="trajectoryTitle">Rotated X and Y sample offset versus holder rotation</title>
+              <desc id="trajectoryDesc">The X correction grows from zero while the negative Y correction moves toward zero as rotation increases from zero to ninety degrees.</desc>
+              <rect x="54" y="14" width="842" height="122" fill="#fbfcfb" stroke="#cdd8d4"></rect>
+              <g id="plotGrid"></g>
+              <path id="dxPath" fill="none" stroke="#0f766e" stroke-width="3"></path>
+              <path id="dyPath" fill="none" stroke="#f59e0b" stroke-width="3"></path>
+              <line id="plotGuide" x1="54" y1="14" x2="54" y2="136" stroke="#17201f" stroke-width="2" stroke-dasharray="4 4"></line>
+              <circle id="dxMarker" r="5" fill="#0f766e" stroke="#fff" stroke-width="2"></circle>
+              <circle id="dyMarker" r="5" fill="#f59e0b" stroke="#fff" stroke-width="2"></circle>
+              <text id="plotValue" x="64" y="27" font-size="11" font-weight="800" fill="#17201f"></text>
+              <text x="475" y="165" text-anchor="middle" font-size="11" font-weight="750" fill="#60706d">holder rotation from reference, θ (degrees)</text>
+              <text transform="translate(15 77) rotate(-90)" text-anchor="middle" font-size="11" font-weight="750" fill="#60706d">required correction (lab units)</text>
+            </svg>
+          </div>
+        </section>
+      </section>
+
+      <aside class="panel control-panel" aria-label="Visualizer controls and live setpoints">
+        <h2>Guided geometry</h2>
+        <section class="control-section">
+          <div class="section-label">Scenes</div>
+          <div class="scene-row">
+            <button type="button" data-scene="reference">1 · Reference</button>
+            <button type="button" data-scene="coupled">2 · Scan over</button>
+            <button type="button" data-scene="rotated">3 · Corrected</button>
+          </div>
+          <div class="action-row">
+            <button id="playButton" type="button">▶ Play demo</button>
+            <button id="resetButton" type="button">Reset</button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="field">
+            <label for="rotationRange">Manipulator rotation</label>
+            <div class="field-pair">
+              <input id="rotationRange" type="range" min="0" max="180" step="0.1" value="30">
+              <input id="rotationNumber" type="number" min="-360" max="540" step="0.1" value="30" aria-label="Manipulator rotation in degrees">
+            </div>
+          </div>
+          <div class="field">
+            <label>Target sample</label>
+            <div class="radio-grid">
+              <label class="radio-card"><input type="radio" name="target" value="001"> (001)</label>
+              <label class="radio-card"><input type="radio" name="target" value="111" checked> (111)</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="zoneSelect">Zone axis</label>
+            <select id="zoneSelect"></select>
+            <div class="action-row">
+              <button id="idealRotationButton" type="button">Apply corrected rotation θ*</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="control-section" aria-live="polite">
+          <div class="section-label">Live state</div>
+          <div class="readout-grid">
+            <div class="readout"><span>Rotation</span><strong id="rotationReadout">30.0°</strong></div>
+            <div class="readout"><span>Target</span><strong id="targetReadout">(111)</strong></div>
+            <div class="readout"><span>Beam azimuth β</span><strong id="beamAngleReadout">0.0°</strong></div>
+            <div class="readout"><span>Corrected rotation θ*</span><strong id="idealRotationReadout">30.0°</strong></div>
+            <div class="readout wide"><span>Selected zone axis</span><strong id="zoneReadout">[2 -1 -1]</strong></div>
+            <div class="readout"><span>Required lab dx</span><strong id="dxReadout">+2.500</strong></div>
+            <div class="readout"><span>Required lab dy</span><strong id="dyReadout">−4.330</strong></div>
+            <div class="readout"><span>Active deflX</span><strong id="deflxReadout">+2.500</strong></div>
+            <div class="readout"><span>Active deflY</span><strong id="deflyReadout">−4.330</strong></div>
+            <div class="readout wide"><span>Hit / miss</span><strong id="statusReadout">Hit · zone aligned</strong></div>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <details class="advanced">
+            <summary>Advanced low-index candidates</summary>
+            <div class="advanced-body">
+              <div class="candidate-block">
+                <h3>Nearest axes</h3>
+                <div id="nearestCandidates"></div>
+              </div>
+              <div class="candidate-block">
+                <h3>Shared rotation candidates</h3>
+                <div id="sharedCandidates"></div>
+              </div>
+              <button id="candidateCsvButton" type="button">Export candidate CSV</button>
+            </div>
+          </details>
+        </section>
+
+        <section class="control-section">
+          <div class="calibration-note">
+            <strong>Coordinate convention</strong><br>
+            Lab X/Y are lateral position. Instrument <code>deflX/deflY = center + C·[dx,dy]</code>. The committed example uses <code>C = I</code>; replace it with measured position and steering-angle calibrations before equipment use. The drawn gun-to-sample distance makes β illustrative. The 1.5° side-view incidence is separate—not inferred from lateral deflY.
+          </div>
+          <div class="toggle-row">
+            <button id="exportButton" type="button">Export state</button>
+            <button id="pauseButton" type="button" disabled>Pause</button>
+          </div>
+          <div class="provenance" id="provenance"></div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const PAYLOAD = {"title":"Double-mounted RHEED geometry","defaults":{"flatRotation":0.0,"deltaX":0.0,"deltaY":-5.0,"centerDeflX":0.0,"centerDeflY":0.0,"calibration":[[1.0,0.0],[0.0,1.0]],"grazingIncidence":1.5,"initialScene":"coupled"},"samples":{"001":{"label":"(001)","zeroLabel":"[110]"},"111":{"label":"(111)","zeroLabel":"[1 -1 0]"}},"axes":{"001":[{"label":"[1 1 0]","angle":0.0},{"label":"[0 1 0]","angle":45.0},{"label":"[1 -1 0]","angle":90.0},{"label":"[1 0 0]","angle":135.0}],"111":[{"label":"[1 -1 0]","angle":0.0},{"label":"[2 -1 -1]","angle":30.0},{"label":"[1 0 -1]","angle":60.0},{"label":"[1 1 -2]","angle":90.0},{"label":"[0 1 -1]","angle":120.0},{"label":"[1 -2 1]","angle":150.0}]},"candidateAxes":{"001":[{"label":"[0 1 0]","angle":45.0,"maxAbs":1,"indexSum":1},{"label":"[1 0 0]","angle":135.0,"maxAbs":1,"indexSum":1},{"label":"[1 1 0]","angle":0.0,"maxAbs":1,"indexSum":2},{"label":"[1 -1 0]","angle":90.0,"maxAbs":1,"indexSum":2},{"label":"[1 2 0]","angle":18.434948822922,"maxAbs":2,"indexSum":3},{"label":"[1 -2 0]","angle":71.565051177078,"maxAbs":2,"indexSum":3},{"label":"[2 -1 0]","angle":108.434948822922,"maxAbs":2,"indexSum":3},{"label":"[2 1 0]","angle":161.565051177078,"maxAbs":2,"indexSum":3},{"label":"[1 3 0]","angle":26.565051177078,"maxAbs":3,"indexSum":4},{"label":"[1 -3 0]","angle":63.434948822922,"maxAbs":3,"indexSum":4},{"label":"[3 -1 0]","angle":116.565051177078,"maxAbs":3,"indexSum":4},{"label":"[3 1 0]","angle":153.434948822922,"maxAbs":3,"indexSum":4},{"label":"[2 3 0]","angle":11.30993247402,"maxAbs":3,"indexSum":5},{"label":"[2 -3 0]","angle":78.69006752598,"maxAbs":3,"indexSum":5},{"label":"[3 -2 0]","angle":101.30993247402,"maxAbs":3,"indexSum":5},{"label":"[3 2 0]","angle":168.69006752598,"maxAbs":3,"indexSum":5}],"111":[{"label":"[1 -1 0]","angle":0.0,"maxAbs":1,"indexSum":2},{"label":"[1 0 -1]","angle":60.0,"maxAbs":1,"indexSum":2},{"label":"[0 1 -1]","angle":120.0,"maxAbs":1,"indexSum":2},{"label":"[2 -1 -1]","angle":30.0,"maxAbs":2,"indexSum":4},{"label":"[1 1 -2]","angle":90.0,"maxAbs":2,"indexSum":4},{"label":"[1 -2 1]","angle":150.0,"maxAbs":2,"indexSum":4},{"label":"[3 -2 -1]","angle":19.106605350869,"maxAbs":3,"indexSum":6},{"label":"[3 -1 -2]","angle":40.893394649131,"maxAbs":3,"indexSum":6},{"label":"[2 1 -3]","angle":79.106605350869,"maxAbs":3,"indexSum":6},{"label":"[1 2 -3]","angle":100.893394649131,"maxAbs":3,"indexSum":6},{"label":"[1 -3 2]","angle":139.106605350869,"maxAbs":3,"indexSum":6},{"label":"[2 -3 1]","angle":160.893394649131,"maxAbs":3,"indexSum":6}]},"exampleRows":[{"sample":"001","axis":"[1 1 0]","angle":0.0,"rotation":0.0,"deflx":0.0,"defly":0.0,"dx":0.0,"dy":0.0},{"sample":"111","axis":"[1 -1 0]","angle":0.0,"rotation":0.0,"deflx":0.0,"defly":-5.0,"dx":0.0,"dy":-5.0},{"sample":"111","axis":"[2 -1 -1]","angle":30.0,"rotation":30.0,"deflx":2.4999999999999996,"defly":-4.330127018922194,"dx":2.4999999999999996,"dy":-4.330127018922194},{"sample":"001","axis":"[0 1 0]","angle":45.0,"rotation":45.0,"deflx":0.0,"defly":0.0,"dx":0.0,"dy":0.0},{"sample":"111","axis":"[1 0 -1]","angle":60.0,"rotation":60.0,"deflx":4.330127018922193,"defly":-2.5000000000000004,"dx":4.330127018922193,"dy":-2.5000000000000004},{"sample":"001","axis":"[1 -1 0]","angle":90.0,"rotation":90.0,"deflx":0.0,"defly":0.0,"dx":0.0,"dy":0.0},{"sample":"111","axis":"[1 1 -2]","angle":90.0,"rotation":90.0,"deflx":5.0,"defly":-3.061616997868383e-16,"dx":5.0,"dy":-3.061616997868383e-16},{"sample":"111","axis":"[0 1 -1]","angle":120.0,"rotation":120.0,"deflx":4.330127018922194,"defly":2.499999999999999,"dx":4.330127018922194,"dy":2.499999999999999},{"sample":"001","axis":"[1 0 0]","angle":135.0,"rotation":135.0,"deflx":0.0,"defly":0.0,"dx":0.0,"dy":0.0},{"sample":"111","axis":"[1 -2 1]","angle":150.0,"rotation":150.0,"deflx":2.4999999999999996,"defly":4.330127018922194,"dx":2.4999999999999996,"dy":4.330127018922194}],"provenance":{"geometry":"tools/double_mounted_rheed_reflection_setpoints.py","example":"double_mounted_rheed_reflection_setpoints.csv"}};
+    const DEG = Math.PI / 180;
+    const HOLDER_CX = 450;
+    const HOLDER_CY = 250;
+    const POSITION_SCALE = 26;
+    const GUN_EXIT = { x: 119, y: 250 };
+    const HIT_TOLERANCE = 0.12;
+
+    const els = {};
+    for (const id of [
+      "pageTitle", "sceneTitle", "sceneExplanation", "statusBadge", "holderGroup", "beamFootprint",
+      "sample001", "sample111", "computedPath", "beamAngleSvg", "rotationSvg", "idealRotationSvg", "incidenceSvg",
+      "rotationRange", "rotationNumber", "zoneSelect", "rotationReadout", "targetReadout",
+      "beamAngleReadout", "idealRotationReadout", "zoneReadout", "dxReadout", "dyReadout", "deflxReadout", "deflyReadout",
+      "statusReadout", "playButton", "pauseButton", "resetButton", "exportButton",
+      "idealRotationButton",
+      "nearestCandidates", "sharedCandidates", "candidateCsvButton",
+      "plotGrid", "dxPath", "dyPath", "plotGuide", "dxMarker", "dyMarker",
+      "plotValue", "provenance"
+    ]) els[id] = document.getElementById(id);
+
+    const defaults = PAYLOAD.defaults;
+    const query = new URLSearchParams(location.search);
+    const state = {
+      rotation: defaults.flatRotation + 30,
+      target: "111",
+      zone: "[2 -1 -1]",
+      scene: defaults.initialScene,
+      playing: false
+    };
+
+    const sceneCopy = {
+      reference: {
+        title: "1 · Flat reference",
+        text: "At θ = 0°, the beam faces the marked major flats and the (111) sample sits on the rotation axis."
+      },
+      coupled: {
+        title: "2 · Scan to the offset sample",
+        text: "The beam hits (001), but steering changes β; the nominal zone-axis rotation is no longer aligned."
+      },
+      rotated: {
+        title: "3 · Correct the rotation",
+        text: "Rotate from the nominal angle to θ*: the beam still hits (001), and the selected zone axis is aligned again."
+      },
+      custom: {
+        title: "Explore the geometry",
+        text: "A lateral scan can hit the offset sample while missing the ideal azimuth. Apply θ* to restore zone alignment."
+      }
+    };
+
+    const demoFrames = [
+      { scene: "reference", hold: 1900 },
+      { scene: "coupled", hold: 2200 },
+      { scene: "rotated", hold: 2300 }
+    ];
+    let demoTimer = null;
+    let demoIndex = 0;
+    let lastCandidateExportRows = [];
+
+    function mod(value, period) { return ((value % period) + period) % period; }
+    function signedAngle(value, period = 180) { return mod(value + period / 2, period) - period / 2; }
+    function fmt(value, digits = 3) {
+      const clean = Math.abs(value) < Math.pow(10, -digits) / 2 ? 0 : value;
+      const sign = clean > 0 ? "+" : clean < 0 ? "−" : "";
+      return sign + Math.abs(clean).toFixed(digits);
+    }
+    function labToSvg(x, y) { return { x: HOLDER_CX + x * POSITION_SCALE, y: HOLDER_CY - y * POSITION_SCALE }; }
+
+    function rotatedOffset(thetaDegrees) {
+      const theta = thetaDegrees * DEG;
+      const c = Math.cos(theta), s = Math.sin(theta);
+      return {
+        x: defaults.deltaX * c - defaults.deltaY * s,
+        y: defaults.deltaX * s + defaults.deltaY * c
+      };
+    }
+
+    function targetAbsoluteAt(relativeRotation, targetKey = state.target) {
+      if (targetKey === "111") return { x: 0, y: 0 };
+      const mountedOffset = rotatedOffset(relativeRotation);
+      return { x: -mountedOffset.x, y: -mountedOffset.y };
+    }
+
+    function beamAzimuthAt(relativeRotation, targetKey = state.target) {
+      const absolute = targetAbsoluteAt(relativeRotation, targetKey);
+      const target = labToSvg(absolute.x, absolute.y);
+      return -Math.atan2(target.y - GUN_EXIT.y, target.x - GUN_EXIT.x) / DEG;
+    }
+
+    function correctedRelativeRotation(axis, targetKey = state.target) {
+      let theta = axis.angle;
+      for (let iteration = 0; iteration < 30; iteration += 1) {
+        const next = axis.angle - beamAzimuthAt(theta, targetKey);
+        const delta = signedAngle(next - theta, 360);
+        theta += delta;
+        if (Math.abs(delta) < 1e-9) break;
+      }
+      return theta;
+    }
+
+    function candidateRows(sampleKey, relativeRotation) {
+      const beta = beamAzimuthAt(relativeRotation, sampleKey);
+      return PAYLOAD.candidateAxes[sampleKey].map(axis => {
+        const corrected = correctedRelativeRotation(axis, sampleKey);
+        return {
+          type: "axis",
+          sample: sampleKey,
+          axis: axis.label,
+          miss: Math.abs(signedAngle(axis.angle - relativeRotation - beta)),
+          corrected,
+          delta: signedAngle(corrected - relativeRotation, 360),
+          indexSum: axis.indexSum
+        };
+      }).sort((a, b) => a.miss - b.miss || a.indexSum - b.indexSum || Math.abs(a.delta) - Math.abs(b.delta));
+    }
+
+    function sharedCandidateRows(rows001, rows111, relativeRotation) {
+      const shared = [];
+      for (const a of rows001) {
+        for (const b of rows111) {
+          const split = Math.abs(signedAngle(b.corrected - a.corrected));
+          if (split > 8) continue;
+          const rotation = a.corrected + signedAngle(b.corrected - a.corrected) / 2;
+          shared.push({
+            type: "shared",
+            sample: "both",
+            axis: `${a.axis} / ${b.axis}`,
+            axis001: a.axis,
+            axis111: b.axis,
+            split,
+            corrected: rotation,
+            delta: signedAngle(rotation - relativeRotation, 360)
+          });
+        }
+      }
+      return shared.sort((a, b) => a.split - b.split || Math.abs(a.delta) - Math.abs(b.delta));
+    }
+
+    function renderCandidateTable(rows) {
+      if (!rows.length) return '<div class="candidate-empty">No candidates in range.</div>';
+      const body = rows.map(row => `
+        <tr>
+          <td>${row.sample === "both" ? `${row.axis001} / ${row.axis111}` : `(${row.sample}) ${row.axis}`}</td>
+          <td>${(row.type === "shared" ? row.split : row.miss).toFixed(2)}°</td>
+          <td>${(defaults.flatRotation + row.corrected).toFixed(1)}°</td>
+          <td>${fmt(row.delta, 1)}°</td>
+        </tr>
+      `).join("");
+      return `<table class="candidate-table"><thead><tr><th>Axis</th><th>${rows[0].type === "shared" ? "Split" : "Miss"}</th><th>θ*</th><th>Δθ</th></tr></thead><tbody>${body}</tbody></table>`;
+    }
+
+    function renderAdvancedCandidates(m) {
+      const rows001 = candidateRows("001", m.relativeRotation);
+      const rows111 = candidateRows("111", m.relativeRotation);
+      const shared = sharedCandidateRows(rows001, rows111, m.relativeRotation);
+      const nearest = [...rows001.slice(0, 3), ...rows111.slice(0, 3)]
+        .sort((a, b) => a.miss - b.miss || Math.abs(a.delta) - Math.abs(b.delta));
+      els.nearestCandidates.innerHTML = renderCandidateTable(nearest);
+      els.sharedCandidates.innerHTML = renderCandidateTable(shared.slice(0, 6));
+      lastCandidateExportRows = [...rows001, ...rows111, ...shared];
+    }
+
+    function instrumentSetpoint(vector) {
+      const C = defaults.calibration;
+      return {
+        x: defaults.centerDeflX + C[0][0] * vector.x + C[0][1] * vector.y,
+        y: defaults.centerDeflY + C[1][0] * vector.x + C[1][1] * vector.y
+      };
+    }
+
+    function axesForTarget() { return PAYLOAD.axes[state.target]; }
+    function selectedAxis() {
+      return axesForTarget().find(axis => axis.label === state.zone) || axesForTarget()[0];
+    }
+
+    function nearestAxisAt(angle) {
+      return axesForTarget().reduce((best, axis) => {
+        const miss = Math.abs(signedAngle(angle - axis.angle));
+        return !best || miss < best.miss ? { axis, miss } : best;
+      }, null).axis;
+    }
+
+    function setControlValues() {
+      els.rotationRange.value = mod(state.rotation - defaults.flatRotation, 180);
+      els.rotationNumber.value = state.rotation.toFixed(1);
+      document.querySelectorAll('input[name="target"]').forEach(input => input.checked = input.value === state.target);
+    }
+
+    function populateZones(preferredAngle = null) {
+      const axes = axesForTarget();
+      els.zoneSelect.innerHTML = axes.map(axis => `<option value="${axis.label}">${axis.label} · ${axis.angle.toFixed(0)}° from flat</option>`).join("");
+      let next = axes.find(axis => axis.label === state.zone);
+      if (!next && preferredAngle !== null) next = nearestAxisAt(preferredAngle);
+      if (!next) next = axes[0];
+      state.zone = next.label;
+      els.zoneSelect.value = state.zone;
+    }
+
+    function updateSvgPoint(element, point, circle = false) {
+      if (circle) {
+        element.setAttribute("cx", point.x.toFixed(2));
+        element.setAttribute("cy", point.y.toFixed(2));
+      } else {
+        element.setAttribute("x2", point.x.toFixed(2));
+        element.setAttribute("y2", point.y.toFixed(2));
+      }
+    }
+
+    function updateBeamGeometry(point, beamAzimuth) {
+      els.computedPath.setAttribute("d", `M ${GUN_EXIT.x} ${GUN_EXIT.y} L ${point.x.toFixed(2)} ${point.y.toFixed(2)}`);
+      els.beamFootprint.setAttribute("transform", `rotate(${-beamAzimuth.toFixed(3)} ${point.x.toFixed(2)} ${point.y.toFixed(2)})`);
+      els.beamAngleSvg.textContent = `β = ${fmt(beamAzimuth, 1)}°`;
+      els.beamAngleSvg.setAttribute("y", (GUN_EXIT.y + (point.y - GUN_EXIT.y) * .24 - 10).toFixed(1));
+    }
+
+    function model() {
+      const relativeRotation = state.rotation - defaults.flatRotation;
+      const mountedOffset = rotatedOffset(relativeRotation);
+      const referenceCenter = { x: -mountedOffset.x, y: -mountedOffset.y };
+      const required = state.target === "111" ? mountedOffset : { x: 0, y: 0 };
+      const active = required;
+      const miss = 0;
+      const axis = selectedAxis();
+      const targetAbsolute = targetAbsoluteAt(relativeRotation);
+      const beamAzimuth = beamAzimuthAt(relativeRotation);
+      const idealRelativeRotation = correctedRelativeRotation(axis);
+      const zoneMiss = Math.abs(signedAngle(axis.angle - relativeRotation - beamAzimuth));
+      return { relativeRotation, mountedOffset, referenceCenter, required, active, miss, axis, targetAbsolute, beamAzimuth, idealRelativeRotation, zoneMiss, setpoint: instrumentSetpoint(active) };
+    }
+
+    function renderGeometry(m) {
+      const computedSpot = labToSvg(m.targetAbsolute.x, m.targetAbsolute.y);
+
+      els.holderGroup.style.transform = `rotate(${-m.relativeRotation}deg)`;
+      updateSvgPoint(els.beamFootprint, computedSpot, true);
+      updateBeamGeometry(computedSpot, m.beamAzimuth);
+
+      els.rotationSvg.textContent = `θ = ${m.relativeRotation.toFixed(1)}°`;
+      els.idealRotationSvg.textContent = `ideal θ* = ${m.idealRelativeRotation.toFixed(1)}°`;
+      els.incidenceSvg.textContent = `${defaults.grazingIncidence.toFixed(1)}°`;
+    }
+
+    function plotPoint(theta, value, maxValue) {
+      const x = 54 + (mod(theta, 180) / 180) * 842;
+      const y = 75 - (value / maxValue) * 53;
+      return { x, y };
+    }
+
+    function renderPlot(m) {
+      const radius = Math.max(1, Math.hypot(defaults.deltaX, defaults.deltaY));
+      const paths = { x: [], y: [] };
+      for (let theta = 0; theta <= 180; theta += 2) {
+        const offset = rotatedOffset(theta);
+        for (const key of ["x", "y"]) {
+          const point = plotPoint(theta, offset[key], radius);
+          paths[key].push(`${theta === 0 ? "M" : "L"}${point.x.toFixed(2)},${point.y.toFixed(2)}`);
+        }
+      }
+      els.dxPath.setAttribute("d", paths.x.join(" "));
+      els.dyPath.setAttribute("d", paths.y.join(" "));
+
+      const ticks = [];
+      for (const theta of [0, 30, 60, 90, 120, 150, 180]) {
+        const x = plotPoint(theta, 0, radius).x;
+        ticks.push(`<line x1="${x}" y1="14" x2="${x}" y2="136" stroke="#e1e8e5"/><text x="${x}" y="151" text-anchor="middle" font-size="10" fill="#60706d">${theta}°</text>`);
+      }
+      for (const value of [-radius, 0, radius]) {
+        const y = plotPoint(0, value, radius).y;
+        ticks.push(`<line x1="54" y1="${y}" x2="896" y2="${y}" stroke="${value === 0 ? "#a9b9b4" : "#e1e8e5"}"/><text x="46" y="${y + 4}" text-anchor="end" font-size="10" fill="#60706d">${value.toFixed(1)}</text>`);
+      }
+      els.plotGrid.innerHTML = ticks.join("");
+
+      const theta = mod(m.relativeRotation, 180);
+      const dxPoint = plotPoint(theta, m.required.x, radius);
+      const dyPoint = plotPoint(theta, m.required.y, radius);
+      els.plotGuide.setAttribute("x1", dxPoint.x); els.plotGuide.setAttribute("x2", dxPoint.x);
+      els.dxMarker.setAttribute("cx", dxPoint.x); els.dxMarker.setAttribute("cy", dxPoint.y);
+      els.dyMarker.setAttribute("cx", dyPoint.x); els.dyMarker.setAttribute("cy", dyPoint.y);
+      const labelX = Math.min(dxPoint.x + 10, 735);
+      els.plotValue.setAttribute("x", labelX);
+      els.plotValue.textContent = `θ ${theta.toFixed(1)}° · dx ${fmt(m.required.x)} · dy ${fmt(m.required.y)}`;
+    }
+
+    function renderReadouts(m) {
+      const positionHit = m.miss <= HIT_TOLERANCE;
+      const zoneHit = m.zoneMiss < .25;
+      let status = "MISS";
+      let detail = `Miss by ${m.miss.toFixed(3)} lab units`;
+      let statusClass = "miss";
+      if (positionHit && zoneHit) {
+        status = "HIT + ZONE ALIGNED";
+        detail = "Hit · zone aligned";
+        statusClass = "";
+      } else if (positionHit) {
+        const correction = signedAngle(m.idealRelativeRotation - m.relativeRotation, 360);
+        status = "POSITION HIT · ROTATION OFF";
+        detail = `Position hit · rotate ${fmt(correction, 1)}° to θ* ${m.idealRelativeRotation.toFixed(1)}°`;
+        statusClass = "partial";
+      } else if (zoneHit) {
+        status = "ZONE ALIGNED · POSITION MISS";
+        detail = `Miss ${m.miss.toFixed(3)} · zone aligned`;
+      }
+
+      els.statusBadge.textContent = status;
+      els.statusBadge.className = `status ${statusClass}`.trim();
+      els.statusBadge.dataset.state = positionHit && zoneHit ? "hit" : "miss";
+      els.statusReadout.textContent = detail;
+      els.rotationReadout.textContent = `${state.rotation.toFixed(1)}° (${m.relativeRotation.toFixed(1)}° from flat)`;
+      els.targetReadout.textContent = PAYLOAD.samples[state.target].label;
+      els.beamAngleReadout.textContent = `${fmt(m.beamAzimuth, 1)}°`;
+      els.idealRotationReadout.textContent = `${(defaults.flatRotation + m.idealRelativeRotation).toFixed(1)}°`;
+      els.zoneReadout.textContent = `${m.axis.label} · nominal ${(defaults.flatRotation + m.axis.angle).toFixed(1)}° · corrected ${(defaults.flatRotation + m.idealRelativeRotation).toFixed(1)}°`;
+      els.dxReadout.textContent = fmt(m.required.x);
+      els.dyReadout.textContent = fmt(m.required.y);
+      els.deflxReadout.textContent = fmt(m.setpoint.x);
+      els.deflyReadout.textContent = fmt(m.setpoint.y);
+      els.zoneSelect.value = state.zone;
+    }
+
+    function renderSceneCopy() {
+      const copy = sceneCopy[state.scene] || sceneCopy.custom;
+      els.sceneTitle.textContent = copy.title;
+      els.sceneExplanation.textContent = copy.text;
+      document.querySelectorAll("[data-scene]").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.scene === state.scene)));
+    }
+
+    function render() {
+      setControlValues();
+      const m = model();
+      renderGeometry(m);
+      renderPlot(m);
+      renderReadouts(m);
+      renderAdvancedCandidates(m);
+      renderSceneCopy();
+      window.__RHEED_GEOMETRY__.lastModel = m;
+    }
+
+    function applyScene(name) {
+      state.scene = name;
+      if (name === "reference") {
+        state.target = "111";
+        state.rotation = defaults.flatRotation;
+        populateZones(0);
+        state.zone = nearestAxisAt(0).label;
+      } else {
+        state.target = "001";
+        state.zone = "[0 1 0]";
+        populateZones(45);
+        const axis = selectedAxis();
+        const relative = name === "rotated" ? correctedRelativeRotation(axis) : axis.angle;
+        state.rotation = defaults.flatRotation + relative;
+      }
+      els.zoneSelect.value = state.zone;
+      render();
+    }
+
+    function stopDemo() {
+      state.playing = false;
+      if (demoTimer) clearTimeout(demoTimer);
+      demoTimer = null;
+      els.playButton.textContent = "▶ Play demo";
+      els.pauseButton.disabled = true;
+    }
+
+    function scheduleDemoFrame() {
+      if (!state.playing) return;
+      const frame = demoFrames[demoIndex % demoFrames.length];
+      applyScene(frame.scene);
+      demoIndex += 1;
+      demoTimer = setTimeout(scheduleDemoFrame, frame.hold);
+    }
+
+    function startDemo() {
+      stopDemo();
+      state.playing = true;
+      demoIndex = 0;
+      els.playButton.textContent = "Playing…";
+      els.pauseButton.disabled = false;
+      scheduleDemoFrame();
+    }
+
+    function exportState() {
+      const m = model();
+      const output = {
+        rotation_deg: state.rotation,
+        rotation_from_flat_deg: m.relativeRotation,
+        target_sample: PAYLOAD.samples[state.target].label,
+        zone_axis: m.axis.label,
+        steering_mode: "computed_xy",
+        beam_azimuth_deg: m.beamAzimuth,
+        corrected_rotation_deg: defaults.flatRotation + m.idealRelativeRotation,
+        rotation_correction_deg: signedAngle(m.idealRelativeRotation - m.axis.angle, 360),
+        required_lab_dx: m.required.x,
+        required_lab_dy: m.required.y,
+        active_deflX: m.setpoint.x,
+        active_deflY: m.setpoint.y,
+        position_miss: m.miss,
+        zone_miss_deg: m.zoneMiss,
+        calibration_matrix: defaults.calibration,
+        provenance: PAYLOAD.provenance
+      };
+      const blob = new Blob([JSON.stringify(output, null, 2) + "\n"], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "double_mounted_rheed_geometry_state.json";
+      anchor.hidden = true;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function exportCandidateCsv() {
+      const headers = ["type", "sample", "axis", "axis_001", "axis_111", "miss_deg", "split_deg", "corrected_rotation_deg", "delta_rotation_deg"];
+      const quote = value => `"${String(value ?? "").replaceAll('"', '""')}"`;
+      const lines = [headers.join(",")];
+      for (const row of lastCandidateExportRows) {
+        lines.push([
+          row.type,
+          row.sample,
+          row.axis,
+          row.axis001,
+          row.axis111,
+          row.type === "axis" ? row.miss.toFixed(6) : "",
+          row.type === "shared" ? row.split.toFixed(6) : "",
+          (defaults.flatRotation + row.corrected).toFixed(6),
+          row.delta.toFixed(6)
+        ].map(quote).join(","));
+      }
+      const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "double_mounted_rheed_candidates.csv";
+      anchor.hidden = true;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    document.querySelectorAll("[data-scene]").forEach(button => button.addEventListener("click", () => { stopDemo(); applyScene(button.dataset.scene); }));
+    document.querySelectorAll('input[name="target"]').forEach(input => input.addEventListener("change", () => {
+      stopDemo();
+      const angle = mod(state.rotation - defaults.flatRotation, 180);
+      state.target = input.value;
+      state.scene = "custom";
+      const crystalAngleAtBeam = angle + beamAzimuthAt(angle);
+      populateZones(crystalAngleAtBeam);
+      state.zone = nearestAxisAt(crystalAngleAtBeam).label;
+      render();
+    }));
+    els.rotationRange.addEventListener("input", () => {
+      stopDemo();
+      state.rotation = defaults.flatRotation + Number(els.rotationRange.value);
+      state.scene = "custom";
+      render();
+    });
+    els.rotationNumber.addEventListener("input", () => {
+      stopDemo();
+      const value = Number(els.rotationNumber.value);
+      if (Number.isFinite(value)) state.rotation = value;
+      state.scene = "custom";
+      render();
+    });
+    els.zoneSelect.addEventListener("change", () => {
+      stopDemo();
+      state.zone = els.zoneSelect.value;
+      const axis = selectedAxis();
+      state.rotation = defaults.flatRotation + correctedRelativeRotation(axis);
+      state.scene = "custom";
+      render();
+    });
+    els.idealRotationButton.addEventListener("click", () => {
+      stopDemo();
+      const m = model();
+      state.rotation = defaults.flatRotation + m.idealRelativeRotation;
+      state.scene = "custom";
+      render();
+    });
+    els.playButton.addEventListener("click", startDemo);
+    els.pauseButton.addEventListener("click", stopDemo);
+    els.resetButton.addEventListener("click", () => { stopDemo(); applyScene(defaults.initialScene); });
+    els.exportButton.addEventListener("click", exportState);
+    els.candidateCsvButton.addEventListener("click", exportCandidateCsv);
+
+    window.__RHEED_GEOMETRY__ = {
+      state,
+      lastModel: null,
+      applyScene,
+      setRotation(rotation) { state.rotation = rotation; state.scene = "custom"; render(); },
+      getSnapshot() {
+        const m = model();
+        return {
+          rotation: state.rotation,
+          relativeRotation: m.relativeRotation,
+          target: state.target,
+          zone: m.axis.label,
+          beamAzimuth: m.beamAzimuth,
+          correctedRotation: defaults.flatRotation + m.idealRelativeRotation,
+          dx: m.required.x,
+          dy: m.required.y,
+          deflX: m.setpoint.x,
+          deflY: m.setpoint.y,
+          miss: m.miss,
+          zoneMiss: m.zoneMiss,
+          status: els.statusBadge.dataset.state
+        };
+      }
+    };
+
+    els.pageTitle.textContent = PAYLOAD.title;
+    document.title = PAYLOAD.title;
+    els.provenance.textContent = `Geometry: ${PAYLOAD.provenance.geometry} · example cross-check: ${PAYLOAD.provenance.example}`;
+    if (query.get("frame") === "1") document.body.classList.add("frame");
+    populateZones(30);
+    const requestedScene = query.get("scene") || defaults.initialScene;
+    applyScene(["reference", "coupled", "rotated"].includes(requestedScene) ? requestedScene : defaults.initialScene);
+    document.documentElement.dataset.ready = "true";
+  </script>
+</body>
+</html>

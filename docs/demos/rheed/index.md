@@ -1,21 +1,26 @@
-# RHEED Planning Demo
+# RHEED Geometry Visualizer
 
 Status: `Active workflow tool`
 
-This demo area is for reproducible RHEED setpoint planning and zone-axis lookup for double-mounted sample workflows.
+Explore how sample position, beam steering, and holder rotation affect RHEED alignment for co-mounted (001) and (111) samples.
 
-## Demo Artifacts
+## Interactive Demo
 
-- [Interactive zone-axis finder](zone-axis-finder.html)
+[Open the RHEED geometry visualizer](geometry-visualizer.html)
+
+Start with the reference geometry, scan the beam onto the offset sample, then compare the corrected holder rotation. The display shows beam azimuth, beam footprint, and alignment with candidate crystal zone axes. Advanced controls provide zone-axis candidates and CSV export.
+
+The self-contained HTML uses illustrative sample offsets and example calibration values. It is a geometry and planning demonstration; the displayed values are not calibrated equipment setpoints.
+
+## Earlier Demo and Public Tools
+
+- [Earlier zone-axis finder](zone-axis-finder.html)
 - [Example setpoint table](example-setpoints.csv)
-
-These artifacts use non-sensitive example calibration values. They show the geometry and provenance workflow without publishing facility-specific operating procedures.
-
-## Public Tools
-
 - [`zone_axis_finder.py`](../../../tools/rheed/zone_axis_finder.py)
 - [`double_mount_setpoints.py`](../../../tools/rheed/double_mount_setpoints.py)
 
-## Privacy Boundary
+These earlier tools remain available for reference. The newer interactive geometry visualizer is the preferred demonstration.
 
-The public demo should explain the geometry and reproducibility benefit without publishing facility-specific operating procedures or unsafe instrument instructions.
+## Public Scope
+
+This page publishes a standalone geometry model with non-sensitive example inputs. It includes no raw growth records, private instrument exports, or facility operating procedures.
